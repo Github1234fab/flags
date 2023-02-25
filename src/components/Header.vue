@@ -12,7 +12,7 @@
 <style>
 .header {
   width: 100%;
-  height: 120px;
+  height: 90px;
   background-color: rgb(141, 141, 163);
   display: flex;
   justify-content: space-between;

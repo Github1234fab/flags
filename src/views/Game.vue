@@ -19,7 +19,7 @@
   <button @click="oneflag" class="game_starter">Start</button>
   
   <!-- <div>{{ countryName }}</div> -->
-      <img :src="countryFlag" alt="Image des drapeaux" />
+      <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
       <input @input="reponse" type="text" class="input" ref="inputReponse" >
       </div>
 </template>
@@ -133,6 +133,13 @@ align-content: center;
   color: white;
   border: none;
   box-shadow: 1px 1px 6px 0px  rgb(69, 64, 64) inset;
+}
+.countryFlag{
+  height: 100px;
+   box-shadow: 1px 1px 6px 0px  rgb(69, 64, 64);
+   border-radius: 5px;
+   margin-bottom: 25px;
+   margin-top: 25px;
 }
 </style>
 

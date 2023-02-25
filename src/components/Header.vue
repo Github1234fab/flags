@@ -36,5 +36,15 @@ nav a{
 .logo{
   color: white;
   margin-left: 70px;
+  animation: logo 1s alternate;
+  animation-iteration-count: 3;
+}
+@keyframes logo {
+ from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(10deg);
+  }
 }
 </style>

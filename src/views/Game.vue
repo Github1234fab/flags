@@ -1,6 +1,6 @@
 <template>
   <div class="container_game">
-  <div class="tableBoard">
+  <div class="table_board">
     <h1>Tableau de bord</h1>
   <div class="themes">
   <span class="continent">Europe <input type="radio"></span>
@@ -9,16 +9,19 @@
   <span class="continent">Afrique <input type="radio"></span>
    <span class="continent">Océanie <input type="radio"></span>
   </div>
-  <div class="counter_container">
-<div class="counter">counter</div>
-  </div>
-  <h3 class="question">À quel pays appartient ce drapeau?</h3>
+  <div class="container_counter">
+<h3 class="counter">counter</h3>
   </div>
   </div>
-  <button @click="oneflag"></button>
-  <input @input="reponse" type="text" class="input" ref="inputReponse" >
-  <div>{{ countryName }}</div>
+  </div>
+  <div class="container_gamer">
+    <h3 class="question">À quel pays appartient ce drapeau?</h3>
+  <button @click="oneflag" class="game_starter">Start</button>
+  
+  <!-- <div>{{ countryName }}</div> -->
       <img :src="countryFlag" alt="Image des drapeaux" />
+      <input @input="reponse" type="text" class="input" ref="inputReponse" >
+      </div>
 </template>
 <script>
 import axios from 'axios'
@@ -66,14 +69,24 @@ dataReponse: "",
 }
 </script>
 <style>
-body{
-  font-family: poppins;
+.table_board{
+  background: linear-gradient(rgb(178, 180, 29), rgb(172, 175, 14));
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  height: 240px;
+  margin-top: 20px;
+}
+.table_board h1{
+  color: white;
+  font-size: 18px;
+  margin-top: 20px;
 }
 .container_game{
 background-color: beige;
 }
 .themes{
-  background-color: blue;
   height: 200px;
   width: 100%;
   display: flex;
@@ -97,10 +110,29 @@ align-content: center;
   border: none;
 }
 .counter{
+  font-size: 18px;
   color: white;
   text-align: center;
   border: solid 1px grey;
   background-color: grey;
+  margin-bottom: 40px;
+}
+.container_gamer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+.question{
+  margin-top: 30px;
+}
+.game_starter{
+  height: 70px;
+  width: 70px;
+  background-color: rgb(24, 237, 24);
+  color: white;
+  border: none;
+  box-shadow: 1px 1px 6px 0px  rgb(69, 64, 64) inset;
 }
 </style>
 

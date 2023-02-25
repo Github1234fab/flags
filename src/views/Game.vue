@@ -1,6 +1,19 @@
 <template>
   <div class="container_game">
-  <h1>Game</h1>
+  <div class="tableBoard">
+    <h1>Tableau de bord</h1>
+  <div class="themes">
+  <span class="continent">Europe <input type="radio"></span>
+  <span class="continent">Asie <input type="radio"></span>
+  <span class="continent">Amérique<input type="radio"></span>
+  <span class="continent">Afrique <input type="radio"></span>
+   <span class="continent">Océanie <input type="radio"></span>
+  </div>
+  <div class="counter_container">
+<div class="counter">counter</div>
+  </div>
+  <h3 class="question">À quel pays appartient ce drapeau?</h3>
+  </div>
   </div>
   <button @click="oneflag"></button>
   <input @input="reponse" type="text" class="input" ref="inputReponse" >
@@ -53,8 +66,41 @@ dataReponse: "",
 }
 </script>
 <style>
+body{
+  font-family: poppins;
+}
 .container_game{
 background-color: beige;
+}
+.themes{
+  background-color: blue;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.continent{
+  color: white;
+  height: 30px;
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+align-content: center;
+}
+.counter_container{
+  height: 50px;
+  width: 100%;
+  background-color: white;
+  border: none;
+}
+.counter{
+  color: white;
+  text-align: center;
+  border: solid 1px grey;
+  background-color: grey;
 }
 </style>
 
@@ -70,3 +116,7 @@ background-color: beige;
       <!-- </div> -->
     <!-- </div> -->
   <!-- </div> -->
+
+
+
+  

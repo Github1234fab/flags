@@ -3,6 +3,7 @@
   <h1>Game</h1>
   </div>
   <button @click="oneflag"></button>
+  <input @input="reponse" type="text" class="input" ref="inputReponse" >
   <div>{{ countryName }}</div>
       <img :src="countryFlag" alt="Image des drapeaux" />
 </template>
@@ -13,7 +14,8 @@ export default {
     return {
       flag: [],
       countryName: "",
-countryFlag: "",
+      countryFlag: "",
+dataReponse: "",
     }
   },
   methods: {
@@ -26,6 +28,15 @@ countryFlag: "",
         console.log(this.countryName);
            console.log(countryFlag);
       })
+    },
+   reponse() {
+      const inputReponse = this.$refs.inputReponse.value;
+      if (this.countryName == inputReponse) {
+        console.log("ok");
+      } else {
+        console.log("pas ok");
+      }
+      this.dataReponse = inputReponse;
     }
   },
   mounted() {

@@ -10,7 +10,7 @@
         <span class="continent">Océanie <input type="radio" /></span>
       </div>
       <div class="container_counter">
-        <h3 class="counter">counter</h3>
+        <h3 class="counter">{{counter}}</h3>
       </div>
     </div>
 
@@ -47,6 +47,7 @@ export default {
       dataNamesRandom: '',
       isCorrect: false,
       userClicked: false,
+      counter: 0,
     }
   },
   methods: {
@@ -65,6 +66,8 @@ export default {
   if (this.countryName === value) {
     console.log('ok')
     this.isCorrect = true
+    this.counter++
+    console.log(this.counter)
   } else {
     console.log('pas ok')
     if (!this.isCorrect) {
@@ -201,7 +204,6 @@ export default {
   background: linear-gradient(rgb(221, 219, 219), rgb(171, 170, 170));
   border-radius: 7px;
 }
-
 .correct {
   background: linear-gradient(rgb(152, 253, 0), rgb(18, 200, 5));
   color: rgb(255, 255, 255);

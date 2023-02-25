@@ -17,13 +17,15 @@
     <div class="container_gamer">
       <h3 class="question">À quel pays appartient ce drapeau?</h3>
       <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
-      <div
-        @click="reponse"
-        v-for="name in dataNamesRandom.concat(countryName)"
-        :key="name"
-        class="countries_names"
-      >
-        {{ name }}
+      <div class="container_countries_names">
+        <div
+          v-for="name in dataNamesRandom.concat(countryName)"
+          :key="name"
+          class="countries_names"
+          @click="reponse($event.target.innerText)"
+        >
+          {{ name }}
+        </div>
       </div>
     </div>
   </div>
@@ -41,6 +43,7 @@ export default {
     }
   },
   methods: {
+    //récupération des datas.nam et data.flag
     oneflag() {
       this.flag.map((el) => {
         const randomIndex = Math.floor(Math.random() * this.flag.length)
@@ -51,15 +54,17 @@ export default {
         console.log(this.countryFlag)
       })
     },
-    reponse() {
-      const inputReponse = this.$refs.inputReponse.value
-      if (this.countryName == inputReponse) {
+    //fonction pour vérifier réponse
+    reponse(value) {
+      if (this.countryName === value) {
         console.log('ok')
       } else {
         console.log('pas ok')
       }
-      this.dataReponse = inputReponse
+      this.dataReponse = value
+      console.log(value)
     },
+    //fonction pour obtenir deux noms aléatoires qui seront associés au vrai nom de drapeau.
     randomNames() {
       this.flag.map((el) => {
         const randomElements = this.flag.sort(() => 0.5 - Math.random()).slice(0, 2)
@@ -138,7 +143,7 @@ export default {
   align-items: center;
   align-content: center;
   justify-content: space-between;
-  height: 300px;
+  height: auto;
 }
 .question {
   margin-top: 30px;
@@ -160,6 +165,7 @@ export default {
   margin-bottom: 25px;
   margin-top: 25px;
 }
+
 .input {
   border: none;
   box-shadow: 1px 1px 4px 0px rgb(69, 64, 64) inset;
@@ -169,17 +175,29 @@ export default {
   color: rgb(1, 1, 72);
   box-shadow: 1px 1px 4px 0px rgb(69, 64, 64) inset;
   background: linear-gradient(rgb(249, 249, 249), rgb(217, 214, 214));
-  width: 300px;
+  width: 350px;
   text-align: center;
   padding: 10px;
   margin-bottom: 5px;
   font-size: 14px;
   border-radius: 5px;
-  transition: 0.2s ease-in-out;
+  transition: 0.4s ease-in-out;
 }
 .countries_names:hover {
-  width: 290px;
+  width: 348px;
   background: linear-gradient(rgb(221, 219, 219), rgb(171, 170, 170));
   border-radius: 7px;
 }
+/* .container_countries_names{
+    background: linear-gradient(rgb(178, 180, 29), rgb(172, 175, 14));
+    width: 350px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+align-items: center;
+align-content: center;
+justify-content: center;
+border-radius: 20px;
+    
+} */
 </style>

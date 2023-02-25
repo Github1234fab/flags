@@ -10,7 +10,7 @@ const router = createRouter({
       component: MyHome
     },
     {
-      path: '/gamet',
+      path: '/game',
       component: Game
     }
   ]

@@ -18,27 +18,23 @@
       <h3 class="question">À quel pays appartient ce drapeau?</h3>
       <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
       <div class="container_countries_names">
-        <!-- <div
+        <div
           v-for="name in dataNamesRandom.concat(countryName)"
           :key="name"
-          class="countries_names"
-          @click="reponse($event.target.innerText)"
-        >{{ name }}
-        </div> -->
-
-    <div
-      v-for="name in dataNamesRandom.concat(countryName)"
-      :key="name"
-      :class="{ 'correct': name === countryName && isCorrect, 'incorrect': name !== countryName && isCorrect }"
-      class="countries_names"
-      @click="reponse(name)"
-    >{{ name }}
-    </div>
-
+       :class="[
+    'countries_names',
+    { correct: name === countryName && isCorrect },
+    { incorrect: name !== countryName && isCorrect && userClicked && value !== countryName },
+    { 'clicked-wrong': userClicked && name === dataReponse && name !== countryName }
+  ]"
+  @click="reponse(name)"
+>
+  {{ name }}
+        </div>
       </div>
     </div>
   </div>
-</template>
+  </template>
 <script>
 import axios from 'axios'
 export default {
@@ -49,7 +45,8 @@ export default {
       countryFlag: '',
       dataReponse: '',
       dataNamesRandom: '',
-          isCorrect: false,
+      isCorrect: false,
+      userClicked: false,
     }
   },
   methods: {
@@ -64,28 +61,20 @@ export default {
         console.log(this.countryFlag)
       })
     },
-    //fonction pour vérifier réponse
-    // reponse(value) {
-    //   if (this.countryName === value) {
-    //     console.log('ok')
-    //   } else {
-    //     console.log('pas ok')
-    //   }
-    //   this.dataReponse = value
-    //   console.log(value)
-    // },
-
- reponse(value) {
-      if (this.countryName === value) {
-        console.log('ok')
-        this.isCorrect = true
-      } else {
-        console.log('pas ok')
-        this.isCorrect = false
-      }
-      this.dataReponse = value
-      console.log(value)
-    },
+  reponse(value) {
+  if (this.countryName === value) {
+    console.log('ok')
+    this.isCorrect = true
+  } else {
+    console.log('pas ok')
+    if (!this.isCorrect) {
+      this.isCorrect = false
+      this.userClicked = true
+    }
+  }
+  this.dataReponse = value
+  console.log(value)
+},
 
     //fonction pour obtenir deux noms aléatoires qui seront associés au vrai nom de drapeau.
     randomNames() {
@@ -187,7 +176,7 @@ export default {
   box-shadow: 1px 1px 6px 0px rgb(69, 64, 64);
   border-radius: 5px;
   margin-bottom: 45px;
-  margin-top:35px;
+  margin-top: 35px;
 }
 
 .input {
@@ -212,20 +201,17 @@ export default {
   background: linear-gradient(rgb(221, 219, 219), rgb(171, 170, 170));
   border-radius: 7px;
 }
-.country-name {
-  color: green;
-}
-
-.data-name {
-  color: red;
-}
 
 .correct {
-  background: linear-gradient(rgb(151, 166, 12), rgb(18, 186, 6));
+  background: linear-gradient(rgb(152, 253, 0), rgb(18, 200, 5));
   color: rgb(255, 255, 255);
 }
 .incorrect {
- background: linear-gradient(rgb(172, 7, 7), rgb(204, 94, 94));
- color: white;
+  background: linear-gradient(rgb(236, 43, 43), rgb(231, 36, 36));
+  color: white;
+}
+.clicked-wrong {
+    background: linear-gradient(rgb(242, 43, 43), rgb(229, 115, 115));
+  color: rgb(255, 255, 255);
 }
 </style>

@@ -18,14 +18,23 @@
       <h3 class="question">À quel pays appartient ce drapeau?</h3>
       <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
       <div class="container_countries_names">
-        <div
+        <!-- <div
           v-for="name in dataNamesRandom.concat(countryName)"
           :key="name"
           class="countries_names"
           @click="reponse($event.target.innerText)"
-        >
-          {{ name }}
-        </div>
+        >{{ name }}
+        </div> -->
+
+    <div
+      v-for="name in dataNamesRandom.concat(countryName)"
+      :key="name"
+      :class="{ 'correct': name === countryName && isCorrect, 'incorrect': name !== countryName && isCorrect }"
+      class="countries_names"
+      @click="reponse(name)"
+    >{{ name }}
+    </div>
+
       </div>
     </div>
   </div>
@@ -39,7 +48,8 @@ export default {
       countryName: '',
       countryFlag: '',
       dataReponse: '',
-      dataNamesRandom: ''
+      dataNamesRandom: '',
+          isCorrect: false,
     }
   },
   methods: {
@@ -55,15 +65,28 @@ export default {
       })
     },
     //fonction pour vérifier réponse
-    reponse(value) {
+    // reponse(value) {
+    //   if (this.countryName === value) {
+    //     console.log('ok')
+    //   } else {
+    //     console.log('pas ok')
+    //   }
+    //   this.dataReponse = value
+    //   console.log(value)
+    // },
+
+ reponse(value) {
       if (this.countryName === value) {
         console.log('ok')
+        this.isCorrect = true
       } else {
         console.log('pas ok')
+        this.isCorrect = false
       }
       this.dataReponse = value
       console.log(value)
     },
+
     //fonction pour obtenir deux noms aléatoires qui seront associés au vrai nom de drapeau.
     randomNames() {
       this.flag.map((el) => {
@@ -110,8 +133,8 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-left: 120px;
-  margin-right: 120px;
+  margin-left: 220px;
+  margin-right: 220px;
 }
 .continent {
   color: white;
@@ -134,8 +157,9 @@ export default {
   color: white;
   text-align: center;
   border: solid 1px grey;
-  background-color: grey;
   margin-bottom: 40px;
+  padding: 10px;
+  border-radius: 10px;
 }
 .container_gamer {
   display: flex;
@@ -146,7 +170,7 @@ export default {
   height: auto;
 }
 .question {
-  margin-top: 30px;
+  margin-top: 70px;
   font-size: 18px;
 }
 .game_starter {
@@ -158,12 +182,12 @@ export default {
   box-shadow: 1px 1px 6px 0px rgb(69, 64, 64) inset;
 }
 .countryFlag {
-  height: 200px;
-  width: auto;
+  height: auto;
+  width: 350px;
   box-shadow: 1px 1px 6px 0px rgb(69, 64, 64);
   border-radius: 5px;
-  margin-bottom: 25px;
-  margin-top: 25px;
+  margin-bottom: 45px;
+  margin-top:35px;
 }
 
 .input {
@@ -188,16 +212,20 @@ export default {
   background: linear-gradient(rgb(221, 219, 219), rgb(171, 170, 170));
   border-radius: 7px;
 }
-/* .container_countries_names{
-    background: linear-gradient(rgb(178, 180, 29), rgb(172, 175, 14));
-    width: 350px;
-    height: 150px;
-    display: flex;
-    flex-direction: column;
-align-items: center;
-align-content: center;
-justify-content: center;
-border-radius: 20px;
-    
-} */
+.country-name {
+  color: green;
+}
+
+.data-name {
+  color: red;
+}
+
+.correct {
+  background: linear-gradient(rgb(151, 166, 12), rgb(18, 186, 6));
+  color: rgb(255, 255, 255);
+}
+.incorrect {
+ background: linear-gradient(rgb(172, 7, 7), rgb(204, 94, 94));
+ color: white;
+}
 </style>

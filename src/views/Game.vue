@@ -18,19 +18,19 @@
       <h3 class="question">À quel pays appartient ce drapeau?</h3>
       <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
       <div class="container_countries_names">
-        <div
-          v-for="name in dataNamesRandom.concat(countryName)"
-          :key="name"
-       :class="[
+       <div
+  v-for="name in dataNamesRandom.concat(countryName)"
+  :key="name"
+  :class="[
     'countries_names',
-    { correct: name === countryName && isCorrect },
-    { incorrect: name !== countryName && isCorrect && userClicked && value !== countryName },
+    { correct: name === countryName && isCorrect && userClicked,
+      incorrect: name !== countryName && userClicked },
     { 'clicked-wrong': userClicked && name === dataReponse && name !== countryName }
   ]"
   @click="reponse(name)"
 >
   {{ name }}
-        </div>
+</div>
       </div>
     </div>
   </div>
@@ -63,22 +63,21 @@ export default {
       })
     },
   reponse(value) {
-  if (this.countryName === value) {
-    console.log('ok')
-    this.isCorrect = true
-    this.counter++
-    console.log(this.counter)
-  } else {
-    console.log('pas ok')
-    if (!this.isCorrect) {
-      this.isCorrect = false
-      this.userClicked = true
-    }
+  if (value === this.countryName) {
+  console.log('ok')
+  this.isCorrect = true
+  this.counter++
+  console.log(this.counter)
+} else {
+  console.log('pas ok')
+  if (!this.isCorrect) {
+    this.isCorrect = false
+    this.userClicked = true
   }
+}
   this.dataReponse = value
   console.log(value)
 },
-
     //fonction pour obtenir deux noms aléatoires qui seront associés au vrai nom de drapeau.
     randomNames() {
       this.flag.map((el) => {
@@ -181,7 +180,6 @@ export default {
   margin-bottom: 45px;
   margin-top: 35px;
 }
-
 .input {
   border: none;
   box-shadow: 1px 1px 4px 0px rgb(69, 64, 64) inset;

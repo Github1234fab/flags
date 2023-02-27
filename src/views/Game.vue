@@ -9,12 +9,8 @@
         <span class="continent">Afrique <input type="radio" /></span>
         <span class="continent">Océanie <input type="radio" /></span>
       </div>
-
-      <div class="container_counter">
-        <h3 class="counter">{{ counter }}</h3>
-      </div>
     </div>
-
+<div class="container_Gaming">
     <div class="container_gamer">
       <h3 class="question">À quel pays appartient ce drapeau?</h3>
       <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
@@ -25,6 +21,10 @@
       </div>
       <div @click="restartGame" class="countries_names">Suivant</div>
     </div>
+    <div class="container_counter">
+        <h3 class="counter">{{ counter }}</h3>
+      </div>
+  </div>
   </div>
 </template>
 <script>
@@ -173,12 +173,15 @@ export default {
 }
 .counter {
   font-size: 18px;
-  color: white;
+  color: rgb(236, 230, 230);
   text-align: center;
   border: solid 1px grey;
   margin-bottom: 40px;
   padding: 10px;
   border-radius: 10px;
+  background-color: grey;
+  width: 50px;
+  height: 60px;
 }
 .container_gamer {
   display: flex;
@@ -242,5 +245,11 @@ export default {
 .clicked-wrong {
   background: linear-gradient(rgb(242, 43, 43), rgb(229, 115, 115));
   color: rgb(255, 255, 255);
+}
+.container_Gaming{
+  display: flex;
+align-items: center;
+align-content: center;
+justify-content: space-evenly;
 }
 </style>

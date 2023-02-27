@@ -36,15 +36,15 @@ nav a{
 .logo{
   color: white;
   margin-left: 70px;
-  animation: logo 1s alternate;
-  animation-iteration-count: 3;
+  animation: logo 4s ease-in-out alternate;
+ 
 }
 @keyframes logo {
- from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(10deg);
-  }
+0% {transform: rotate(0deg);}
+20% {transform: rotate(20deg);}
+40% {transform: rotate(0deg);}
+60% {transform: rotate(30deg);}
+80% {transform: rotate(0deg);}
+100% {transform: rotate(40deg);}
 }
 </style>

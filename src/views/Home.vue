@@ -34,22 +34,26 @@ export default {
   margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 35px;
   justify-content: center;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 .flags {
-  height: 50px;
-  width: 80px;
+  height: 70px;
+  width: 95px;
   border-radius: 10px;
   box-shadow: 0px 0px 8px -3px rgb(74, 72, 72);
   opacity: 0.8;
+  margin-bottom: 20px;
 }
 .flags:hover {
   opacity: 1;
 }
 .country_name {
   font-family: poppins;
-  margin-bottom: 12px;
+  font-size: 14px;
+  margin-bottom: 5px;;
 }
 button {
   height: 100px;

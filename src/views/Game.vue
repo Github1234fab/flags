@@ -1,6 +1,7 @@
 <template>
   <div class="container_game">
     <div class="table_board">
+
       <h1>Tableau de bord</h1>
       <div class="themes">
         <span class="continent">Europe <input type="radio" /></span>
@@ -9,6 +10,7 @@
         <span class="continent">Afrique <input type="radio" /></span>
         <span class="continent">Océanie <input type="radio" /></span>
       </div>
+
       <div class="container_counter">
         <h3 class="counter">{{ counter }}</h3>
       </div>
@@ -18,10 +20,10 @@
       <h3 class="question">À quel pays appartient ce drapeau?</h3>
       <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
       <div class="container_countries_names">
-        <div @click="reponse" class="countries_names" ref="divRedOne"> {{  dataNameRandomOne }}</div>
+        <div @click="reponse" class="countries_names" ref="divRedOne">{{ dataNameRandomOne }}</div>
         <div @click="reponse" class="countries_names" ref="divRedTwo">{{ dataNameRandomTwo }}</div>
-         <div @click="reponse"  class="countries_names" ref="divGreen">{{ countryName }}</div>
-         <div class="countries_names">Suivant</div>
+        <div @click="reponse" class="countries_names" ref="divGreen">{{ countryName }}</div>
+        <div @click="restartGame" class="countries_names">Suivant</div>
       </div>
     </div>
   </div>
@@ -29,6 +31,7 @@
 <script>
 import axios from 'axios'
 export default {
+
   data() {
     return {
       flag: [],
@@ -40,9 +43,9 @@ export default {
       isCorrect: false,
       userClicked: false,
       counter: 0,
-      // quizzQuestion: [],
     }
   },
+
   methods: {
     //  récupération des datas.nam et data.flag
     oneflag() {
@@ -78,23 +81,22 @@ export default {
     },
 
     //  comportement des classes (chgmt couleur) suite à la réponse du User
-    reponse(event){
-      this.$refs.divGreen.classList.add("correct");
-      this.$refs.divRedOne.classList.add("incorrect");
-      this.$refs.divRedTwo.classList.add("incorrect");
-      if (event.target.textContent == this.countryName) {
-      this.counter++
-}
+    reponse(event) {
+      this.$refs.divGreen.classList.add('correct')
+      this.$refs.divRedOne.classList.add('incorrect')
+      this.$refs.divRedTwo.classList.add('incorrect')
+      if (event.target.textContent == this.countryName) this.counter++
     },
-     
-    //fonction pour placer dans un tableau countryName + dataNamesRandom et mélanger avec slice.
-    // quizz() {
-    //   this.quizzQuestion.push(this.dataNameRandomOne)
-    //   this.quizzQuestion.push(this.dataNameRandomTwo)
-    //   this.quizzQuestion.push(this.countryName)
-    //   this.quizzQuestion.sort(() => Math.random() - 0.5)
-    //   console.log(quizzQuestion)
-    // }
+
+    restartGame() {
+      // réinitialisation du jeu ici
+      this.$refs.divGreen.classList.remove('correct')
+  this.$refs.divRedOne.classList.remove('incorrect')
+  this.$refs.divRedTwo.classList.remove('incorrect')
+  this.oneflag()
+  this.randomNameOne()
+  this.randomNameTwo()
+    }
   },
 
   mounted() {
@@ -171,6 +173,7 @@ export default {
   align-content: center;
   justify-content: space-between;
   height: auto;
+  margin-bottom: 50px;
 }
 .question {
   margin-top: 70px;
@@ -225,8 +228,5 @@ export default {
 .clicked-wrong {
   background: linear-gradient(rgb(242, 43, 43), rgb(229, 115, 115));
   color: rgb(255, 255, 255);
-}
-.country_name {
-  background-color: blue;
 }
 </style>

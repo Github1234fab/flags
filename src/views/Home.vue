@@ -3,7 +3,7 @@
   <div class="container_flags">
     <div v-for="(infos, index) in flags" :key="index">
       <div class="country_name">{{ infos.translations.fra.common }}</div>
-      <div v-if="infos.flags.png">
+      <div class="flag_name" v-if="infos.flags.png">
         <img class="flags" :src="infos.flags.png" alt="Image des drapeaux" />
       </div>
     </div>
@@ -38,8 +38,8 @@ export default {
   justify-content: center;
 }
 .flags {
-  height: 100px;
-  width: 150px;
+  height: 50px;
+  width: 80px;
   border-radius: 10px;
   box-shadow: 0px 0px 8px -3px rgb(74, 72, 72);
   opacity: 0.8;
@@ -49,7 +49,7 @@ export default {
 }
 .country_name {
   font-family: poppins;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 button {
   height: 100px;

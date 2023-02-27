@@ -21,6 +21,7 @@
         <div @click="reponse" class="countries_names" ref="divRedOne"> {{  dataNameRandomOne }}</div>
         <div @click="reponse" class="countries_names" ref="divRedTwo">{{ dataNameRandomTwo }}</div>
          <div @click="reponse"  class="countries_names" ref="divGreen">{{ countryName }}</div>
+         <div class="countries_names">Suivant</div>
       </div>
     </div>
   </div>

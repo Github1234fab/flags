@@ -1,7 +1,6 @@
 <template>
   <div class="container_game">
     <div class="table_board">
-
       <h1>Tableau de bord</h1>
       <div class="themes">
         <span class="continent">Europe <input type="radio" /></span>
@@ -19,19 +18,18 @@
     <div class="container_gamer">
       <h3 class="question">À quel pays appartient ce drapeau?</h3>
       <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
-      <div class="container_countries_names">
+      <div class="container_countries_names" ref="containerQuestionRandom">
         <div @click="reponse" class="countries_names" ref="divRedOne">{{ dataNameRandomOne }}</div>
         <div @click="reponse" class="countries_names" ref="divRedTwo">{{ dataNameRandomTwo }}</div>
         <div @click="reponse" class="countries_names" ref="divGreen">{{ countryName }}</div>
-        <div @click="restartGame" class="countries_names">Suivant</div>
       </div>
+      <div @click="restartGame" class="countries_names">Suivant</div>
     </div>
   </div>
 </template>
 <script>
 import axios from 'axios'
 export default {
-
   data() {
     return {
       flag: [],
@@ -42,7 +40,7 @@ export default {
       dataNameRandomTwo: '',
       isCorrect: false,
       userClicked: false,
-      counter: 0,
+      counter: 0
     }
   },
 
@@ -91,12 +89,27 @@ export default {
     restartGame() {
       // réinitialisation du jeu ici
       this.$refs.divGreen.classList.remove('correct')
-  this.$refs.divRedOne.classList.remove('incorrect')
-  this.$refs.divRedTwo.classList.remove('incorrect')
-  this.oneflag()
-  this.randomNameOne()
-  this.randomNameTwo()
-    }
+      this.$refs.divRedOne.classList.remove('incorrect')
+      this.$refs.divRedTwo.classList.remove('incorrect')
+      this.oneflag()
+      this.randomNameOne()
+      this.randomNameTwo()
+      this.shuffle()
+    },
+
+  shuffle() {
+  const parent = this.$refs.containerQuestionRandom
+  const elements = parent.children
+  for (let i = 0; i < elements.length; i++) {
+    parent.appendChild(elements[Math.floor(Math.random() * i)])
+  }
+
+  // Trouver le div contenant la bonne réponse et le déplacer à une position aléatoire
+  const correctDiv = this.$refs.divGreen
+  const randomIndex = Math.floor(Math.random() * elements.length)
+  const randomElement = elements[randomIndex]
+  parent.insertBefore(correctDiv, randomElement.nextSibling)
+}
   },
 
   mounted() {
@@ -109,6 +122,7 @@ export default {
         this.randomNameOne()
         this.randomNameTwo()
         this.quizz()
+        this.shuffle()
       })
       .catch((error) => {
         console.log(error)

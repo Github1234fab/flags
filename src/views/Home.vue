@@ -1,5 +1,4 @@
 <template>
-  <h1>HOME</h1>
   <div class="container_flags">
     <div v-for="(infos, index) in flags" :key="index">
       <div class="country_name">{{ infos.translations.fra.common }}</div>
@@ -32,6 +31,7 @@ export default {
 </script>
 <style>
 .container_flags {
+  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;

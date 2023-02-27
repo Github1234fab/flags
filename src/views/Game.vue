@@ -10,7 +10,7 @@
         <span class="continent">Océanie <input type="radio" /></span>
       </div>
       <div class="container_counter">
-        <h3 class="counter">{{counter}}</h3>
+        <h3 class="counter">{{ counter }}</h3>
       </div>
     </div>
 
@@ -18,23 +18,12 @@
       <h3 class="question">À quel pays appartient ce drapeau?</h3>
       <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
       <div class="container_countries_names">
-       <div
-  v-for="name in dataNamesRandom.concat(countryName)"
-  :key="name"
-  :class="[
-    'countries_names',
-    { correct: name === countryName && isCorrect && userClicked,
-      incorrect: name !== countryName && userClicked },
-    { 'clicked-wrong': userClicked && name === dataReponse && name !== countryName }
-  ]"
-  @click="reponse(name)"
->
-  {{ name }}
-</div>
+       <div v-for="quizzQuestions in quizzQuestion" class="countries_names"> {{ quizzQuestions }}</div>
+          {{ name }}
+        </div>
       </div>
     </div>
-  </div>
-  </template>
+</template>
 <script>
 import axios from 'axios'
 export default {
@@ -44,14 +33,16 @@ export default {
       countryName: '',
       countryFlag: '',
       dataReponse: '',
-      dataNamesRandom: '',
+      dataNameRandomOne: '',
+      dataNameRandomTwo: '',
       isCorrect: false,
       userClicked: false,
       counter: 0,
+      quizzQuestion: []
     }
   },
   methods: {
-    //récupération des datas.nam et data.flag
+    //  récupération des datas.nam et data.flag
     oneflag() {
       this.flag.map((el) => {
         const randomIndex = Math.floor(Math.random() * this.flag.length)
@@ -62,29 +53,44 @@ export default {
         console.log(this.countryFlag)
       })
     },
-  reponse(value) {
-  if (value === this.countryName) {
-  console.log('ok')
-  this.isCorrect = true
-  this.counter++
-  console.log(this.counter)
-} else {
-  console.log('pas ok')
-  if (!this.isCorrect) {
-    this.isCorrect = false
-    this.userClicked = true
-  }
-}
-  this.dataReponse = value
-  console.log(value)
-},
+    reponse(value) {
+      if (value === this.countryName) {
+        console.log('ok')
+        this.isCorrect = true
+        this.counter++
+        console.log(this.counter)
+      } else {
+        console.log('pas ok')
+        if (!this.isCorrect) {
+          this.isCorrect = false
+          this.userClicked = true
+        }
+      }
+      this.dataReponse = value
+      console.log(value)
+    },
     //fonction pour obtenir deux noms aléatoires qui seront associés au vrai nom de drapeau.
-    randomNames() {
+    randomNameOne() {
       this.flag.map((el) => {
-        const randomElements = this.flag.sort(() => 0.5 - Math.random()).slice(0, 2)
-        this.dataNamesRandom = randomElements.map((el) => el.translations.fra.common)
-        console.log(this.dataNamesRandom)
+        const randomElements = this.flag.sort(() => 0.5 - Math.random()).slice(0, 1)
+        this.dataNameRandomOne = randomElements.map((el) => el.translations.fra.common)
+        console.log(this.dataNameRandomOne)
       })
+    },
+    randomNameTwo() {
+      this.flag.map((el) => {
+        const randomElements = this.flag.sort(() => 0.5 - Math.random()).slice(0, 1)
+        this.dataNameRandomTwo = randomElements.map((el) => el.translations.fra.common)
+        console.log(this.dataNameRandomTwo)
+      })
+    },
+    //fonction pour placer dans un tableau countryName + dataNamesRandom et mélanger avec slice.
+    quizz() {
+      this.quizzQuestion.push(this.dataNameRandomOne)
+      this.quizzQuestion.push(this.dataNameRandomTwo)
+      this.quizzQuestion.push(this.countryName)
+     this.quizzQuestion.sort(()=>Math.random()-0.5)
+    console.log(quizzQuestion)
     }
   },
   mounted() {
@@ -94,7 +100,9 @@ export default {
         this.flag = response.data
         console.log(this.flag)
         this.oneflag()
-        this.randomNames()
+        this.randomNameOne()
+        this.randomNameTwo()
+        this.quizz()
       })
       .catch((error) => {
         console.log(error)
@@ -211,7 +219,7 @@ export default {
   color: white;
 }
 .clicked-wrong {
-    background: linear-gradient(rgb(242, 43, 43), rgb(229, 115, 115));
+  background: linear-gradient(rgb(242, 43, 43), rgb(229, 115, 115));
   color: rgb(255, 255, 255);
 }
 </style>

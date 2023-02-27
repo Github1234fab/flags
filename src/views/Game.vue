@@ -20,7 +20,7 @@
       <div class="container_countries_names">
         <div @click="reponse" class="countries_names" ref="divRedOne"> {{  dataNameRandomOne }}</div>
         <div @click="reponse" class="countries_names" ref="divRedTwo">{{ dataNameRandomTwo }}</div>
-         <div @click="reponse" class="countries_names" ref="divGreen">{{ countryName }}</div>
+         <div @click="reponse"  class="countries_names" ref="divGreen">{{ countryName }}</div>
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@ export default {
       isCorrect: false,
       userClicked: false,
       counter: 0,
-      quizzQuestion: [],
+      // quizzQuestion: [],
     }
   },
   methods: {
@@ -76,38 +76,26 @@ export default {
       })
     },
 
-
-    //  comportement après la réponse
-    reponse() {
-      // obtenir le texte de l'élément cliqué
-      // const clickedName = event.target.textContent.trim()
-
+    //  comportement des classes (chgmt couleur) suite à la réponse du User
+    reponse(event){
       this.$refs.divGreen.classList.add("correct");
       this.$refs.divRedOne.classList.add("incorrect");
       this.$refs.divRedTwo.classList.add("incorrect");
-      // if (clickedName === this.countryName) {
-      //   console.log('ok')
-      //   this.isCorrect = true
-      //   this.counter++
-      //   console.log(this.counter)
-      //   this.dataReponse = event
-      //   console.log(dataReponse)
-      // } else {
-      //   console.log('pas ok')
-      //   this.isCorrect = false
-      //   this.userClicked = true
-      // }
+      if (event.target.textContent == this.countryName) {
+      this.counter++
+}
     },
-    
+     
     //fonction pour placer dans un tableau countryName + dataNamesRandom et mélanger avec slice.
-    quizz() {
-      this.quizzQuestion.push(this.dataNameRandomOne)
-      this.quizzQuestion.push(this.dataNameRandomTwo)
-      this.quizzQuestion.push(this.countryName)
-      this.quizzQuestion.sort(() => Math.random() - 0.5)
-      console.log(quizzQuestion)
-    }
+    // quizz() {
+    //   this.quizzQuestion.push(this.dataNameRandomOne)
+    //   this.quizzQuestion.push(this.dataNameRandomTwo)
+    //   this.quizzQuestion.push(this.countryName)
+    //   this.quizzQuestion.sort(() => Math.random() - 0.5)
+    //   console.log(quizzQuestion)
+    // }
   },
+
   mounted() {
     axios
       .get('https://restcountries.com/v3.1/all')

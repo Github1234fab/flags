@@ -18,107 +18,112 @@
       <h3 class="question">À quel pays appartient ce drapeau?</h3>
       <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
       <div class="container_countries_names">
-        <div v-for = "quizzQuestions in quizzQuestion" @click="reponse" class="countries_names">
-          {{ quizzQuestions }}
-        </div>
-        {{ name }}
+        <div @click="reponse" class="countries_names" ref="divRedOne"> {{  dataNameRandomOne }}</div>
+        <div @click="reponse" class="countries_names" ref="divRedTwo">{{ dataNameRandomTwo }}</div>
+         <div @click="reponse" class="countries_names" ref="divGreen">{{ countryName }}</div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
+import axios from 'axios'
 export default {
   data() {
     return {
       flag: [],
-      countryName: "",
-      countryFlag: "",
-      dataReponse: "",
-      dataNameRandomOne: "",
-      dataNameRandomTwo: "",
+      countryName: '',
+      countryFlag: '',
+      dataReponse: '',
+      dataNameRandomOne: '',
+      dataNameRandomTwo: '',
       isCorrect: false,
       userClicked: false,
       counter: 0,
       quizzQuestion: [],
-    };
+    }
   },
   methods: {
     //  récupération des datas.nam et data.flag
     oneflag() {
       this.flag.map((el) => {
-        const randomIndex = Math.floor(Math.random() * this.flag.length);
-        const randomElement = this.flag[randomIndex];
-        this.countryName = randomElement.translations.fra.common;
-        this.countryFlag = randomElement.flags.png;
-        console.log(this.countryName);
-        console.log(this.countryFlag);
-      });
+        const randomIndex = Math.floor(Math.random() * this.flag.length)
+        const randomElement = this.flag[randomIndex]
+        this.countryName = randomElement.translations.fra.common
+        this.countryFlag = randomElement.flags.png
+        console.log(this.countryName)
+        console.log(this.countryFlag)
+      })
     },
 
-    //  comportement après la réponse
-    reponse(event) {
-  // obtenir le texte de l'élément cliqué
-  const clickedName = event.target.textContent.trim();
-
-  if (clickedName === this.countryName) {
-    console.log("ok");
-    this.isCorrect = true;
-    this.counter++;
-    console.log(this.counter);
-     this.dataReponse = event;
-  console.log(dataReponse);
-  } else {
-    console.log("pas ok");
-      this.isCorrect = false;
-      this.userClicked = true;
-  }
- 
-},
     //fonction pour obtenir deux noms aléatoires qui seront associés au vrai nom de drapeau.
     randomNameOne() {
       this.flag.map((el) => {
-        const randomElements = this.flag.sort(() => 0.5 - Math.random()).slice(0, 1);
-        this.dataNameRandomOne = randomElements.map((el) => el.translations.fra.common);
-        console.log(this.dataNameRandomOne);
-  
-      });
+        const randomIndex = Math.floor(Math.random() * this.flag.length)
+        const randomElement = this.flag[randomIndex]
+        // const randomElements = this.flag.sort(() => 0.5 - Math.random()).slice(0, 1)
+        this.dataNameRandomOne = randomElement.translations.fra.common
+        console.log(this.dataNameRandomOne)
+      })
     },
 
     randomNameTwo() {
       this.flag.map((el) => {
-        const randomElements = this.flag.sort(() => 0.5 - Math.random()).slice(0, 1);
-        this.dataNameRandomTwo = randomElements.map((el) => el.translations.fra.common);
-        console.log(this.dataNameRandomTwo);
-      });
+        const randomIndex = Math.floor(Math.random() * this.flag.length)
+        const randomElement = this.flag[randomIndex]
+        // const randomElements = this.flag.sort(() => 0.5 - Math.random()).slice(0, 1)
+        this.dataNameRandomTwo = randomElement.translations.fra.common
+        console.log(this.dataNameRandomTwo)
+      })
     },
 
+
+    //  comportement après la réponse
+    reponse() {
+      // obtenir le texte de l'élément cliqué
+      // const clickedName = event.target.textContent.trim()
+
+      this.$refs.divGreen.classList.add("correct");
+      this.$refs.divRedOne.classList.add("incorrect");
+      this.$refs.divRedTwo.classList.add("incorrect");
+      // if (clickedName === this.countryName) {
+      //   console.log('ok')
+      //   this.isCorrect = true
+      //   this.counter++
+      //   console.log(this.counter)
+      //   this.dataReponse = event
+      //   console.log(dataReponse)
+      // } else {
+      //   console.log('pas ok')
+      //   this.isCorrect = false
+      //   this.userClicked = true
+      // }
+    },
+    
     //fonction pour placer dans un tableau countryName + dataNamesRandom et mélanger avec slice.
     quizz() {
-      this.quizzQuestion.push(this.dataNameRandomOne);
-      this.quizzQuestion.push(this.dataNameRandomTwo);
-      this.quizzQuestion.push(this.countryName);
-      this.quizzQuestion.sort(() => Math.random() - 0.5);
-      console.log(quizzQuestion);
-    },
-
+      this.quizzQuestion.push(this.dataNameRandomOne)
+      this.quizzQuestion.push(this.dataNameRandomTwo)
+      this.quizzQuestion.push(this.countryName)
+      this.quizzQuestion.sort(() => Math.random() - 0.5)
+      console.log(quizzQuestion)
+    }
   },
   mounted() {
     axios
-      .get("https://restcountries.com/v3.1/all")
+      .get('https://restcountries.com/v3.1/all')
       .then((response) => {
-        this.flag = response.data;
-        console.log(this.flag);
-        this.oneflag();
-        this.randomNameOne();
-        this.randomNameTwo();
-        this.quizz();
+        this.flag = response.data
+        console.log(this.flag)
+        this.oneflag()
+        this.randomNameOne()
+        this.randomNameTwo()
+        this.quizz()
       })
       .catch((error) => {
-        console.log(error);
-      });
-  },
-};
+        console.log(error)
+      })
+  }
+}
 </script>
 
 <style>
@@ -232,7 +237,7 @@ export default {
   background: linear-gradient(rgb(242, 43, 43), rgb(229, 115, 115));
   color: rgb(255, 255, 255);
 }
-.country_name{
+.country_name {
   background-color: blue;
 }
 </style>

@@ -10,21 +10,28 @@
         <span class="continent">Océanie <input type="radio" /></span>
       </div>
     </div>
-<div class="container_Gaming">
-    <div class="container_gamer">
-      <h3 class="question">À quel pays appartient ce drapeau?</h3>
-      <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
-      <div class="container_countries_names" ref="containerQuestionRandom">
-        <div @click="reponse" class="countries_names" ref="divRedOne">{{ dataNameRandomOne }}</div>
-        <div @click="reponse" class="countries_names" ref="divRedTwo">{{ dataNameRandomTwo }}</div>
-        <div @click="reponse" class="countries_names" ref="divGreen">{{ countryName }}</div>
+    <div class="container_Gaming">
+      <div class="container_gamer">
+        <h3 class="question">À quel pays appartient ce drapeau?</h3>
+        <div class="container_div">
+        <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
+        <div class="container_countries_names" ref="containerQuestionRandom">
+          <div @click="reponse" class="countries_names" ref="divRedOne">
+            {{ dataNameRandomOne }}
+          </div>
+          <div @click="reponse" class="countries_names" ref="divRedTwo">
+            {{ dataNameRandomTwo }}
+          </div>
+          <div @click="reponse" class="countries_names" ref="divGreen">{{ countryName }}</div>
+        </div>
+        <div @click="restartGame" class="countries_names">Suivant</div>
+        </div>
       </div>
-      <div @click="restartGame" class="countries_names">Suivant</div>
-    </div>
-    <div class="container_counter">
+      <div class="container_counter">
+        <h3 class="counter_title">Compteur</h3>
         <h3 class="counter">{{ counter }}</h3>
       </div>
-  </div>
+    </div>
   </div>
 </template>
 <script>
@@ -97,19 +104,19 @@ export default {
       this.shuffle()
     },
 
-  shuffle() {
-  const parent = this.$refs.containerQuestionRandom
-  const elements = parent.children
-  for (let i = 0; i < elements.length; i++) {
-    parent.appendChild(elements[Math.floor(Math.random() * i)])
-  }
+    shuffle() {
+      const parent = this.$refs.containerQuestionRandom
+      const elements = parent.children
+      for (let i = 0; i < elements.length; i++) {
+        parent.appendChild(elements[Math.floor(Math.random() * i)])
+      }
 
-  // Trouver le div contenant la bonne réponse et le déplacer à une position aléatoire
-  const correctDiv = this.$refs.divGreen
-  const randomIndex = Math.floor(Math.random() * elements.length)
-  const randomElement = elements[randomIndex]
-  parent.insertBefore(correctDiv, randomElement.nextSibling)
-}
+      // Trouver le div contenant la bonne réponse et le déplacer à une position aléatoire
+      const correctDiv = this.$refs.divGreen
+      const randomIndex = Math.floor(Math.random() * elements.length)
+      const randomElement = elements[randomIndex]
+      parent.insertBefore(correctDiv, randomElement.nextSibling)
+    }
   },
 
   mounted() {
@@ -138,8 +145,8 @@ export default {
   flex-direction: column;
   align-content: center;
   align-items: center;
-  height: 240px;
-  margin-top: 20px;
+  height: 140px;
+  margin-top: 10px;
 }
 .table_board h1 {
   color: white;
@@ -165,11 +172,16 @@ export default {
   align-items: center;
   align-content: center;
 }
-.counter_container {
-  height: 50px;
-  width: 100%;
-  background-color: white;
-  border: none;
+.container_counter {
+  height: 100px;
+  width: 350px;
+  background-color: rgb(15, 105, 36);
+  box-shadow: 1px 1px 6px 0px rgb(69, 64, 64);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
 }
 .counter {
   font-size: 18px;
@@ -179,9 +191,15 @@ export default {
   margin-bottom: 40px;
   padding: 10px;
   border-radius: 10px;
-  background-color: grey;
+  background-color: transparent;
   width: 50px;
-  height: 60px;
+  height: 50px;
+}
+.counter_title {
+  color: rgb(243, 244, 239);
+  font-size: 15px;
+  text-align: center;
+  margin-top: 20px;
 }
 .container_gamer {
   display: flex;
@@ -190,10 +208,9 @@ export default {
   align-content: center;
   justify-content: space-between;
   height: auto;
-  margin-bottom: 50px;
+  margin-top: 20px;
 }
 .question {
-  margin-top: 70px;
   font-size: 18px;
 }
 .game_starter {
@@ -209,8 +226,8 @@ export default {
   width: 350px;
   box-shadow: 1px 1px 6px 0px rgb(69, 64, 64);
   border-radius: 5px;
-  margin-bottom: 45px;
-  margin-top: 35px;
+  margin-bottom: 25px;
+  margin-top: 15px;
 }
 .input {
   border: none;
@@ -246,10 +263,13 @@ export default {
   background: linear-gradient(rgb(242, 43, 43), rgb(229, 115, 115));
   color: rgb(255, 255, 255);
 }
-.container_Gaming{
+.container_Gaming {
+  height: 100%;
+  gap: 10px;
   display: flex;
-align-items: center;
-align-content: center;
-justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
 }
 </style>

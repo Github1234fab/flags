@@ -1,40 +1,138 @@
 <template>
   <div>
-    <div class="table_board">
-      <h1>Tableau de bord</h1>
-      <div class="themes">
-        <span class="continent">Europe <input @click="europeLink" type="radio" /></span>
-        <span class="continent">Asie <input @click="asiaLink" type="radio" /></span>
-        <span class="continent">Amérique<input @click="americasLink" type="radio" /></span>
-        <span  class="continent">Afrique <input @click="africaLink" type="radio" /></span>
-        <span class="continent">Océanie <input  @click="oceanieLink" type="radio" /></span>
-      </div>
-    </div>
+   
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-  data() {
-    return {}
-  },
+    data() {
+        return {
+            africaData: null,
+            asiaData: null,
+            oceaniaData: null,
+            europeData: null,
+            americasData: null,
+            worldData: null,
+        }
+    },
 
-  methods: {
-    europeLink() {
-      this.$router.push({ name: 'Europe' })
-      },
-      africaLink() {
-      this.$router.push({ name: 'Afrique' })
-      },
-     americasLink() {
-      this.$router.push({ name: 'Amerique' })
-      },
-     asiaLink() {
-      this.$router.push({ name: 'Asie' })
-      },
-     oceanieLink() {
-      this.$router.push({ name: 'Oceanie'})
+    methods: {
+        getAfricaData() {
+            axios
+                .get('https://restcountries.com/v3.1/region/Africa')
+                .then((response) => {
+                    this.africaData = response.data
+                    console.log(this.africaData)
+                    // this.oneflag()
+                    // this.randomNameOne()
+                    // this.randomNameTwo()
+                    // this.quizz()
+                    // this.shuffle()
+                    // this.gamePart()
+
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+
+        getAsiaData() {
+            axios
+                .get('https://restcountries.com/v3.1/region/Asia')
+                .then((response) => {
+                    this.asiaData = response.data
+                    console.log(this.asiaData)
+                    // this.oneflag()
+                    // this.randomNameOne()
+                    // this.randomNameTwo()
+                    // this.quizz()
+                    // this.shuffle()
+                    // this.gamePart()
+
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+
+        getOceaniaData() {
+            axios
+                .get('https://restcountries.com/v3.1/region/Oceania')
+                .then((response) => {
+                    this.oceaniaData = response.data
+                    console.log(this.oceaniaData)
+                    // this.oneflag()
+                    // this.randomNameOne()
+                    // this.randomNameTwo()
+                    // this.quizz()
+                    // this.shuffle()
+                    // this.gamePart()
+
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+
+        getAmericasData() {
+            axios
+                .get('https://restcountries.com/v3.1/region/Americas')
+                .then((response) => {
+                    this.americasData = response.data
+                    console.log(this.americasData)
+                    // this.oneflag()
+                    // this.randomNameOne()
+                    // this.randomNameTwo()
+                    // this.quizz()
+                    // this.shuffle()
+                    // this.gamePart()
+
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+
+        getEuropeData() {
+            axios
+                .get('https://restcountries.com/v3.1/region/Europe')
+                .then((response) => {
+                    this.europeData = response.data
+                    console.log(this.europeData)
+                    // this.oneflag()
+                    // this.randomNameOne()
+                    // this.randomNameTwo()
+                    // this.quizz()
+                    // this.shuffle()
+                    // this.gamePart()
+
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+
+
+        getWorldData() {
+            axios
+                .get('https://restcountries.com/v3.1/all')
+                .then((response) => {
+                    this.worldData = response.data
+                    console.log(this.worldData)
+                    // this.oneflag()
+                    // this.randomNameOne()
+                    // this.randomNameTwo()
+                    // this.quizz()
+                    // this.shuffle()
+                    // this.gamePart()
+
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
     }
-  }
 }
 </script>
 <style>

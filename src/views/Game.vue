@@ -1,6 +1,15 @@
 <template>
   <div class="container_game">
-  <tableBoard />
+    <div class="table_board">
+      <h1>Tableau de bord</h1>
+      <div class="themes">
+        <span class="continent">Europe <input @click="europeLink" type="radio" /></span>
+        <span class="continent">Asie <input @click="asiaLink" type="radio" /></span>
+        <span class="continent">Amérique<input @click="americasLink" type="radio" /></span>
+        <span class="continent">Afrique <input @click="africaLink" type="radio" /></span>
+        <span class="continent">Océanie <input @click="oceanieLink" type="radio" /></span>
+      </div>
+    </div>
     <div class="container_Gaming">
       <div class="container_gamer">
         <h3 class="question">À quel pays appartient ce drapeau?</h3>
@@ -15,21 +24,20 @@
             </div>
             <div @click="reponse" class="countries_names" ref="divGreen">{{ countryName }}</div>
           </div>
-          <div @click="restartGame" class="next">Suivant</div>
+          <div ref="suivant" @click="restartGame" class="next">Suivant</div>
         </div>
       </div>
       <div class="container_counter" ref="containerCounter">
         <h3 class="counter_title">Compteur</h3>
         <h3 class="counter">{{ counter }}</h3>
         <p class="resultat" ref="resultat">{{ counter }} points sur 5.</p>
-        <button class="new_game" ref="newGame">Rejouer</button>
+        <button ref="newGame" @click="reload" class="new_game">Rejouer</button>
       </div>
     </div>
   </div>
 </template>
 <script>
 import axios from 'axios'
-  import TableBoard from '../components/TableBoard.vue'
 export default {
   data() {
     return {
@@ -46,10 +54,6 @@ export default {
       disabledDivs: false
     }
   },
-  components:{
-  tableBoard: TableBoard,
-  },
-
   methods: {
     //  récupération des datas.nam et data.flag
     oneflag() {
@@ -62,7 +66,6 @@ export default {
         console.log(this.countryFlag)
       })
     },
-
     //fonction pour obtenir deux noms aléatoires qui seront associés au vrai nom de drapeau.
     randomNameOne() {
       this.flag.map((el) => {
@@ -73,7 +76,6 @@ export default {
         console.log(this.dataNameRandomOne)
       })
     },
-
     randomNameTwo() {
       this.flag.map((el) => {
         const randomIndex = Math.floor(Math.random() * this.flag.length)
@@ -83,7 +85,6 @@ export default {
         console.log(this.dataNameRandomTwo)
       })
     },
-
     //  comportement des classes (chgmt couleur) suite à la réponse du User
     reponse(event) {
       this.$refs.divGreen.classList.add('correct')
@@ -102,9 +103,9 @@ export default {
         this.$refs.resultat.classList.add('resultat_visible')
         this.$refs.newGame.classList.add('new_game_visible')
         this.$refs.containerCounter.classList.add('container_counter_resultat')
+        this.$refs.suivant.classList.add('disabled')
       }
     },
-
     restartGame() {
       // réinitialisation du jeu ici
       this.$refs.divGreen.classList.remove('correct')
@@ -116,6 +117,22 @@ export default {
       this.shuffle()
     },
 
+    reload() {
+      this.oneflag()
+      this.randomNameOne()
+      this.randomNameTwo()
+      this.shuffle()
+      this.counter = 0
+      this.$refs.divGreen.classList.remove('correct')
+      this.$refs.divRedOne.classList.remove('incorrect')
+      this.$refs.divRedTwo.classList.remove('incorrect')
+      this.$refs.suivant.classList.remove('disabled')
+       this.$refs.resultat.classList.remove('resultat_visible')
+        this.$refs.newGame.classList.remove('new_game_visible')
+        this.$refs.containerCounter.classList.remove('container_counter_resultat')
+       
+    },
+
     shuffle() {
       const parent = this.$refs.containerQuestionRandom
       const elements = parent.children
@@ -124,7 +141,6 @@ export default {
       }
     }
   },
-
   mounted() {
     axios
       .get('https://restcountries.com/v3.1/all')
@@ -146,7 +162,6 @@ export default {
 </script>
 
 <style>
-
 .container_counter {
   height: 100px;
   width: 350px;
@@ -261,6 +276,9 @@ export default {
 .disabled {
   pointer-events: none;
 }
+.abled{
+  pointer-events: all;
+}
 .resultat {
   visibility: hidden;
 }
@@ -271,7 +289,7 @@ export default {
   visibility: visible;
   color: white;
   margin-top: 10px;
-   transition: visibility2s ease-in;
+  transition: visibility2s ease-in;
 }
 .new_game_visible {
   visibility: visible;
@@ -282,6 +300,38 @@ export default {
   height: 60px;
   border: none;
   transition: visibility 2s ease-in;
-  
+}
+.table_board {
+  background: linear-gradient(rgb(178, 180, 29), rgb(172, 175, 14));
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  height: 140px;
+  margin-top: 10px;
+}
+.table_board h1 {
+  color: white;
+  font-size: 18px;
+  margin-top: 20px;
+}
+.themes {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 220px;
+  margin-right: 220px;
+}
+.continent {
+  color: white;
+  height: 30px;
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
 }
 </style>

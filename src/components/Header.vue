@@ -5,6 +5,9 @@
     <nav>
     <a href="/">Home</a> 
     <a href="/game">Game</a>
+    <a href="/europe">Europe</a>
+      <a href="/oceanie">oceanie</a>
+    
     </nav>
   </div>
 </template>

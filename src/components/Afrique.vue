@@ -29,14 +29,14 @@
 </template>
 <script>
 import axios from 'axios'
-  import TableBoard from '../components/TableBoard.vue'
+ import TableBoard from '../components/TableBoard.vue'
 export default {
   data() {
     return {
       flag: [],
       countryName: '',
       countryFlag: '',
-      dataReponse: '',
+      dataReponse: '',  
       dataNameRandomOne: '',
       dataNameRandomTwo: '',
       isCorrect: false,
@@ -45,9 +45,9 @@ export default {
       gamePart: 0,
       disabledDivs: false
     }
-  },
-  components:{
-  tableBoard: TableBoard,
+    },
+    components: {
+    tableBoard: TableBoard,
   },
 
   methods: {
@@ -127,7 +127,7 @@ export default {
 
   mounted() {
     axios
-      .get('https://restcountries.com/v3.1/all')
+      .get('https://restcountries.com/v3.1/region/Africa')
       .then((response) => {
         this.flag = response.data
         console.log(this.flag)
@@ -146,7 +146,39 @@ export default {
 </script>
 
 <style>
-
+.table_board {
+  background: linear-gradient(rgb(178, 180, 29), rgb(172, 175, 14));
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  height: 140px;
+  margin-top: 10px;
+}
+.table_board h1 {
+  color: white;
+  font-size: 18px;
+  margin-top: 20px;
+}
+.themes {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 220px;
+  margin-right: 220px;
+}
+.continent {
+  color: white;
+  height: 30px;
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
 .container_counter {
   height: 100px;
   width: 350px;

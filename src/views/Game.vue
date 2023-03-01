@@ -14,22 +14,24 @@
       <div class="container_gamer">
         <h3 class="question">À quel pays appartient ce drapeau?</h3>
         <div class="container_div">
-        <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
-        <div class="container_countries_names" ref="containerQuestionRandom">
-          <div @click="reponse" class="countries_names" ref="divRedOne">
-            {{ dataNameRandomOne }}
+          <img :src="countryFlag" alt="Image des drapeaux" class="countryFlag" />
+          <div class="container_countries_names" ref="containerQuestionRandom">
+            <div @click="reponse" class="countries_names" ref="divRedOne">
+              {{ dataNameRandomOne }}
+            </div>
+            <div @click="reponse" class="countries_names" ref="divRedTwo">
+              {{ dataNameRandomTwo }}
+            </div>
+            <div @click="reponse" class="countries_names" ref="divGreen">{{ countryName }}</div>
           </div>
-          <div @click="reponse" class="countries_names" ref="divRedTwo">
-            {{ dataNameRandomTwo }}
-          </div>
-          <div @click="reponse" class="countries_names" ref="divGreen">{{ countryName }}</div>
-        </div>
-        <div @click="restartGame" class="countries_names">Suivant</div>
+          <div @click="restartGame" class="next">Suivant</div>
         </div>
       </div>
       <div class="container_counter">
         <h3 class="counter_title">Compteur</h3>
         <h3 class="counter">{{ counter }}</h3>
+        <p class="resultat" ref="resultat">{{ counter }} points sur 5.</p>
+        <button class="new_game" ref="newGame">Rejouer</button>
       </div>
     </div>
   </div>
@@ -47,7 +49,9 @@ export default {
       dataNameRandomTwo: '',
       isCorrect: false,
       userClicked: false,
-      counter: 0
+      counter: 0,
+      gamePart: 0,
+      disabledDivs: false
     }
   },
 
@@ -91,6 +95,18 @@ export default {
       this.$refs.divRedOne.classList.add('incorrect')
       this.$refs.divRedTwo.classList.add('incorrect')
       if (event.target.textContent == this.countryName) this.counter++
+      //incrémenter à chaque clique des trois divs questions pour déterminer le nombre de coups par partie.
+      console.log('ok')
+      this.gamePart++
+      console.log(this.gamePart)
+      if (this.gamePart == 5) {
+        console.log('Tu as fait une partie en 5')
+        this.$refs.divGreen.classList.add('disabled')
+        this.$refs.divRedOne.classList.add('disabled')
+        this.$refs.divRedTwo.classList.add('disabled')
+        this.$refs.resultat.classList.add('resultat_visible')
+        this.$refs.newGame.classList.add('new_game_visible')
+      }
     },
 
     restartGame() {
@@ -110,12 +126,6 @@ export default {
       for (let i = 0; i < elements.length; i++) {
         parent.appendChild(elements[Math.floor(Math.random() * i)])
       }
-
-      // Trouver le div contenant la bonne réponse et le déplacer à une position aléatoire
-      const correctDiv = this.$refs.divGreen
-      const randomIndex = Math.floor(Math.random() * elements.length)
-      const randomElement = elements[randomIndex]
-      parent.insertBefore(correctDiv, randomElement.nextSibling)
     }
   },
 
@@ -130,6 +140,7 @@ export default {
         this.randomNameTwo()
         this.quizz()
         this.shuffle()
+        this.gamePart()
       })
       .catch((error) => {
         console.log(error)
@@ -173,7 +184,7 @@ export default {
   align-content: center;
 }
 .container_counter {
-  height: 100px;
+  height: 250px;
   width: 350px;
   background-color: rgb(15, 105, 36);
   box-shadow: 1px 1px 6px 0px rgb(69, 64, 64);
@@ -188,7 +199,7 @@ export default {
   color: rgb(236, 230, 230);
   text-align: center;
   border: solid 1px grey;
-  margin-bottom: 40px;
+  margin-bottom: 15px;
   padding: 10px;
   border-radius: 10px;
   background-color: transparent;
@@ -246,11 +257,6 @@ export default {
   border-radius: 5px;
   transition: 0.4s ease-in-out;
 }
-.countries_names:hover {
-  width: 348px;
-  background: linear-gradient(rgb(221, 219, 219), rgb(171, 170, 170));
-  border-radius: 7px;
-}
 .correct {
   background: linear-gradient(rgb(152, 253, 0), rgb(18, 200, 5));
   color: rgb(255, 255, 255);
@@ -271,5 +277,41 @@ export default {
   align-items: center;
   align-content: center;
   justify-content: space-around;
+}
+.next {
+  background-color: rgb(217, 217, 40);
+  color: rgb(1, 1, 72);
+  box-shadow: 1px 1px 4px 0px rgb(69, 64, 64) inset;
+  width: 350px;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: 0.4s ease-in-out;
+}
+.disabled {
+  pointer-events: none;
+}
+.resultat {
+  visibility: hidden;
+}
+.new_game {
+  visibility: hidden;
+}
+.resultat_visible {
+  visibility: visible;
+  color: white;
+  margin-top: 10px;
+}
+.new_game_visible {
+  visibility: visible;
+  background-color: transparent;
+  color: rgb(242, 191, 191);
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px 0px rgb(4, 4, 4);
+  height: 60px;
+  border: none;
+  
 }
 </style>

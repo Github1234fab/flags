@@ -130,22 +130,23 @@ export default {
     },
     //fonction qui recharge une nouvelle partie, en évitant de recharger la page. En, gros, tous les composants sont remis à zéro.
     reload() {
-      this.oneflag()
-      this.randomNameOne()
-      this.randomNameTwo()
-      this.shuffle()
-      this.counter = 0
-      this.$refs.divGreen.classList.remove('correct')
-      this.$refs.divRedOne.classList.remove('incorrect')
-      this.$refs.divRedTwo.classList.remove('incorrect')
-      this.$refs.divGreen.classList.remove('disabled')
-      this.$refs.divRedOne.classList.remove('disabled')
-      this.$refs.divRedTwo.classList.remove('disabled')
-      this.$refs.suivant.classList.remove('disabled')
-      this.$refs.resultat.classList.remove('resultat_visible')
-      this.$refs.newGame.classList.remove('new_game_visible')
-      this.$refs.containerCounter.classList.remove('container_counter_resultat')
-      this.reponse()
+      // this.oneflag()
+      // this.randomNameOne()
+      // this.randomNameTwo()
+      // this.shuffle()
+      // this.counter = 0
+      // this.$refs.divGreen.classList.remove('correct')
+      // this.$refs.divRedOne.classList.remove('incorrect')
+      // this.$refs.divRedTwo.classList.remove('incorrect')
+      // this.$refs.divGreen.classList.remove('disabled')
+      // this.$refs.divRedOne.classList.remove('disabled')
+      // this.$refs.divRedTwo.classList.remove('disabled')
+      // this.$refs.suivant.classList.remove('disabled')
+      // this.$refs.resultat.classList.remove('resultat_visible')
+      // this.$refs.newGame.classList.remove('new_game_visible')
+      // this.$refs.containerCounter.classList.remove('container_counter_resultat')
+      // this.reponse()
+      window.location.reload()
     },
 
 //fonction qui permet de mélanger l'ordre des questions de haut en bas.
@@ -214,7 +215,7 @@ export default {
 .container_counter {
   height: 200px;
   width: 350px;
-  background: linear-gradient(rgb(44, 185, 77), rgb(39, 142, 63));
+  background: linear-gradient(rgb(184, 209, 190), rgb(39, 142, 63));
   box-shadow: 1px 1px 6px 0px rgb(69, 64, 64);
   border-radius: 10px;
   display: flex;
@@ -352,10 +353,10 @@ export default {
 }
 .new_game_visible {
   visibility: visible;
-  background: linear-gradient( rgb(238, 229, 230), rgb(161, 134, 137));
+  background: linear-gradient( rgb(238, 229, 230), rgb(229, 225, 225));
   color: rgb(3, 3, 3);
   border-radius: 10px;
-  box-shadow: 1px 3px 4px 1px rgb(4, 4, 4) inset;
+  box-shadow: 1px 3px 10px 1px rgb(4, 4, 4);
   height: 60px;
   border: none;
   transition: visibility 2s ease-in;

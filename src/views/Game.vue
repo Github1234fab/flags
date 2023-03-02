@@ -47,7 +47,6 @@ export default {
       urlD: "https://restcountries.com/v3.1/subregion/asia",
       urlE: "https://restcountries.com/v3.1/subregion/oceania",
       urlF: "https://restcountries.com/v3.1/subregion/all",
-        dataUrl: [this.urlA, this.urlB, this.urlC, this.urlD, this.urlE, this.urlF],
       flag: [],
       countryName: '',
       countryFlag: '',
@@ -152,30 +151,51 @@ export default {
     },
 
     findUrl(index) {
-      this.urlSelected=this.dataUrl[index]
-      console.log(urlSelected)
-    }
+    let dataUrl = [this.urlA, this.urlB, this.urlC, this.urlD, this.urlE, this.urlF];
+    this.urlSelected = dataUrl[index];
+    console.log(this.urlSelected);
+    this.fetchData();
   },
 
-  mounted() {
+  fetchData() {
     axios
       .get(this.urlSelected)
       .then((response) => {
-        this.flag = response.data
-        console.log(this.flag)
-        this.oneflag()
-        this.randomNameOne()
-        this.randomNameTwo()
-        this.quizz()
-        this.shuffle()
-        this.gamePart()
-        this.reload()
-        this.findUrl()
+        this.flag = response.data;
+        console.log(this.flag);
+        this.oneflag();
+        this.randomNameOne();
+        this.randomNameTwo();
+        this.quizz();
+        this.shuffle();
+        this.gamePart();
+        this.reload();
       })
       .catch((error) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
+},
+
+  // mounted() {
+  //   axios
+  //     .get(this.url)
+  //     .then((response) => {
+  //       this.flag = response.data
+  //       console.log(this.flag)
+  //       this.oneflag()
+  //       this.randomNameOne()
+  //       this.randomNameTwo()
+  //       this.quizz()
+  //       this.shuffle()
+  //       this.gamePart()
+  //       this.reload()
+  //       this.findUrl()
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
 }
 </script>
 

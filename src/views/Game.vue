@@ -4,7 +4,7 @@
       <h1>Tableau de bord</h1>
       <!-- span avec @click pour appeler fonction findUrl pour trouver l'url correspondant au continent. -->
       <div class="themes">
-        <span class="continent">Europe <input @click="findUrl(0)" type="radio" /></span>
+        <span class="continent">Europe <input @click="findUrl(0)" type="check" /></span>
         <span class="continent">Amérique <input @click="findUrl(1)" type="radio" /></span>
         <span class="continent">Afrique<input @click="findUrl(2)" type="radio" /></span>
         <span class="continent">Asie<input @click="findUrl(3)" type="radio" /></span>
@@ -49,8 +49,8 @@ export default {
       urlB: 'https://restcountries.com/v3.1/subregion/americas',
       urlC: 'https://restcountries.com/v3.1/subregion/africa',
       urlD: 'https://restcountries.com/v3.1/subregion/asia',
-      urlE: 'https://restcountries.com/v3.1/subregion/oceania',
-      urlF: 'https://restcountries.com/v3.1/subregion/all',
+      urlE: 'https://restcountries.com/v3.1/region/oceania',
+      urlF: 'https://restcountries.com/v3.1/all',
       flag: [],
       countryName: '',
       countryFlag: '',

@@ -2,12 +2,14 @@
   <div class="container_game">
     <div class="table_board">
       <h1>Tableau de bord</h1>
+      <!-- span avec @click pour appeler fonction findUrl pour trouver l'url correspondant au continent. -->
       <div class="themes">
         <span class="continent">Europe <input @click="findUrl(0)" type="radio" /></span>
-        <span class="continent">Asie <input @click="findUrl(2)" type="radio" /></span>
-        <span class="continent">Amérique<input @click="findUrl(3)" type="radio" /></span>
-        <span class="continent">Afrique <input @click="findUrl(4)" type="radio" /></span>
-        <span class="continent">Océanie <input @click="findUrl(5)" type="radio" /></span>
+        <span class="continent">Amérique <input @click="findUrl(1)" type="radio" /></span>
+        <span class="continent">Afrique<input @click="findUrl(2)" type="radio" /></span>
+        <span class="continent">Asie<input @click="findUrl(3)" type="radio" /></span>
+        <span class="continent">Océanie <input @click="findUrl(4)" type="radio" /></span>
+        <span class="continent">Monde<input @click="findUrl(5)" type="radio" /></span>
       </div>
     </div>
     <div class="container_Gaming">
@@ -22,7 +24,9 @@
             <div @click="reponse" class="countries_names" ref="divRedTwo">
               {{ dataNameRandomTwo }}
             </div>
-            <div @click="reponse" class="countries_names" ref="divGreen">{{ countryName }}</div>
+            <div @click="reponse" class="countries_names" ref="divGreen">
+              {{ countryName }}
+            </div>
           </div>
           <div ref="suivant" @click="restartGame" class="next">Suivant</div>
         </div>
@@ -41,12 +45,12 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      urlA: "https://restcountries.com/v3.1/subregion/europe",
-      urlB: "https://restcountries.com/v3.1/subregion/americas",
-      urlC: "https://restcountries.com/v3.1/subregion/africa",
-      urlD: "https://restcountries.com/v3.1/subregion/asia",
-      urlE: "https://restcountries.com/v3.1/subregion/oceania",
-      urlF: "https://restcountries.com/v3.1/subregion/all",
+      urlA: 'https://restcountries.com/v3.1/subregion/europe',
+      urlB: 'https://restcountries.com/v3.1/subregion/americas',
+      urlC: 'https://restcountries.com/v3.1/subregion/africa',
+      urlD: 'https://restcountries.com/v3.1/subregion/asia',
+      urlE: 'https://restcountries.com/v3.1/subregion/oceania',
+      urlF: 'https://restcountries.com/v3.1/subregion/all',
       flag: [],
       countryName: '',
       countryFlag: '',
@@ -58,11 +62,11 @@ export default {
       counter: 0,
       gamePart: 0,
       disabledDivs: false,
-      urlSelected: "",
+      urlSelected: ''
     }
   },
   methods: {
-    //  récupération des datas.nam et data.flag
+    //  récupération des datas.name et data.flag
     oneflag() {
       this.flag.map((el) => {
         const randomIndex = Math.floor(Math.random() * this.flag.length)
@@ -92,7 +96,7 @@ export default {
         console.log(this.dataNameRandomTwo)
       })
     },
-    //  comportement des classes (chgmt couleur) suite à la réponse du User
+    //  comportement des classes suite à la réponse du gamer.
     reponse(event) {
       this.$refs.divGreen.classList.add('correct')
       this.$refs.divRedOne.classList.add('incorrect')
@@ -113,8 +117,8 @@ export default {
         this.$refs.suivant.classList.add('disabled')
       }
     },
+    // fonction qui permet d'accéder au coup suivant
     restartGame() {
-      // réinitialisation du jeu ici
       this.$refs.divGreen.classList.remove('correct')
       this.$refs.divRedOne.classList.remove('incorrect')
       this.$refs.divRedTwo.classList.remove('incorrect')
@@ -123,7 +127,7 @@ export default {
       this.randomNameTwo()
       this.shuffle()
     },
-
+    //fonction qui recharge une nouvelle partie, en évitant de recharger la page. En, gros, tous les composants sont remis à zéro.
     reload() {
       this.oneflag()
       this.randomNameOne()
@@ -140,8 +144,10 @@ export default {
       this.$refs.resultat.classList.remove('resultat_visible')
       this.$refs.newGame.classList.remove('new_game_visible')
       this.$refs.containerCounter.classList.remove('container_counter_resultat')
+      this.reponse()
     },
 
+//fonction qui permet de mélanger l'ordre des questions de haut en bas.
     shuffle() {
       const parent = this.$refs.containerQuestionRandom
       const elements = parent.children
@@ -150,32 +156,34 @@ export default {
       }
     },
 
+//fonction qui permet de choisir l'url en fonction du continent
     findUrl(index) {
-    let dataUrl = [this.urlA, this.urlB, this.urlC, this.urlD, this.urlE, this.urlF];
-    this.urlSelected = dataUrl[index];
-    console.log(this.urlSelected);
-    this.fetchData();
-  },
+      let dataUrl = [this.urlA, this.urlB, this.urlC, this.urlD, this.urlE, this.urlF]
+      this.urlSelected = dataUrl[index]
+      console.log(this.urlSelected)
+      this.fetchData()
+    },
 
-  fetchData() {
-    axios
-      .get(this.urlSelected)
-      .then((response) => {
-        this.flag = response.data;
-        console.log(this.flag);
-        this.oneflag();
-        this.randomNameOne();
-        this.randomNameTwo();
-        this.quizz();
-        this.shuffle();
-        this.gamePart();
-        this.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+// requête avec url en fonction du continent. Comme on appelle la requête grâce à findUrl est ses écouteurs d'évènements sur les spans, on a pas besoin de mounted l'appel à l'API.
+    fetchData() {
+      axios
+        .get(this.urlSelected)
+        .then((response) => {
+          this.flag = response.data
+          console.log(this.flag)
+          this.oneflag()
+          this.randomNameOne()
+          this.randomNameTwo()
+          this.quizz()
+          this.shuffle()
+          this.gamePart()
+          this.reload()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
-},
 
   // mounted() {
   //   axios

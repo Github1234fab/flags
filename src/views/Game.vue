@@ -220,7 +220,7 @@ export default {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   align-content: center;
 }
@@ -346,10 +346,10 @@ export default {
 }
 .resultat_visible {
   visibility: visible;
-  color: rgb(241, 194, 227);
+  color: rgb(246, 246, 246);
   margin-top: 10px;
   transition: visibility2s ease-in;
-  font-size: 34px;
+  font-size: 28px;
 }
 .new_game_visible {
   visibility: visible;
@@ -409,7 +409,7 @@ export default {
 .numberOfclick{
   height: 25px;
   width: 100px;
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 14px;
 }
 </style>

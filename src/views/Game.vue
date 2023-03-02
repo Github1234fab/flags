@@ -1,15 +1,15 @@
 <template>
   <div class="container_game">
     <div class="table_board">
-      <h1>Tableau de bord</h1>
+      <!-- <h1>Tableau de bord</h1> -->
       <!-- span avec @click pour appeler fonction findUrl pour trouver l'url correspondant au continent. -->
       <div class="themes">
-        <span class="continent">Europe <input @click="findUrl(0)" type="check" /></span>
-        <span class="continent">Amérique <input @click="findUrl(1)" type="radio" /></span>
-        <span class="continent">Afrique<input @click="findUrl(2)" type="radio" /></span>
-        <span class="continent">Asie<input @click="findUrl(3)" type="radio" /></span>
-        <span class="continent">Océanie <input @click="findUrl(4)" type="radio" /></span>
-        <span class="continent">Monde<input @click="findUrl(5)" type="radio" /></span>
+        <span name="continents" class="continent">Europe <input @click="findUrl(0)" type="check" class="continent_button" /></span>
+        <span name="continents" class="continent">Amérique <input @click="findUrl(1)" type="check" class="continent_button" /></span>
+        <span name="continents" class="continent">Afrique<input @click="findUrl(2)" type="check" class="continent_button"/></span>
+        <span name="continents" class="continent">Asie<input @click="findUrl(3)" type="check" class="continent_button"/></span>
+        <span name="continents" class="continent">Océanie <input @click="findUrl(4)" type="check" class="continent_button"/></span>
+        <span name="continents" class="continent">Monde<input @click="findUrl(5)" type="check" class="continent_button" checked /></span>
       </div>
     </div>
     <div class="container_Gaming">
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       urlA: 'https://restcountries.com/v3.1/subregion/europe',
-      urlB: 'https://restcountries.com/v3.1/subregion/americas',
+      urlB: 'https://restcountries.com/v3.1/region/americas',
       urlC: 'https://restcountries.com/v3.1/subregion/africa',
       urlD: 'https://restcountries.com/v3.1/subregion/asia',
       urlE: 'https://restcountries.com/v3.1/region/oceania',
@@ -353,13 +353,12 @@ export default {
   flex-direction: column;
   align-content: center;
   align-items: center;
-  height: 140px;
+  height: 100px;
   margin-top: 10px;
 }
 .table_board h1 {
   color: white;
   font-size: 18px;
-  margin-top: 20px;
 }
 .themes {
   height: 200px;
@@ -373,11 +372,24 @@ export default {
 .continent {
   color: white;
   height: 30px;
-  width: 100px;
+  width: 30px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
   align-content: center;
+}
+.continent_button{
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: none;
+}
+.continent_button:hover{
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: none;
+  background-color: blue;
 }
 </style>

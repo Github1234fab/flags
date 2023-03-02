@@ -3,11 +3,11 @@
     <div class="table_board">
       <h1>Tableau de bord</h1>
       <div class="themes">
-        <span class="continent">Europe <input @click="europeLink" type="radio" /></span>
-        <span class="continent">Asie <input @click="asiaLink" type="radio" /></span>
-        <span class="continent">Amérique<input @click="americasLink" type="radio" /></span>
-        <span class="continent">Afrique <input @click="africaLink" type="radio" /></span>
-        <span class="continent">Océanie <input @click="oceanieLink" type="radio" /></span>
+        <span class="continent">Europe <input @click="findUrl(0)" type="radio" /></span>
+        <span class="continent">Asie <input @click="findUrl(2)"  type="radio" /></span>
+        <span class="continent">Amérique<input @click="findUrl(3)"  type="radio" /></span>
+        <span class="continent">Afrique <input @click="findUrl(4)"  type="radio" /></span>
+        <span class="continent">Océanie <input @click="findUrl(5)"  type="radio" /></span>
       </div>
     </div>
     <div class="container_Gaming">
@@ -41,6 +41,9 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      dataUrl: [('https://restcountries.com/v3.1/subregion/europe'), 'https://restcountries.com/v3.1/subregion/americas',
+        'https://restcountries.com/v3.1/subregion/africa', 'https://restcountries.com/v3.1/subregion/asia',
+      'https://restcountries.com/v3.1/subregion/oceania', 'https://restcountries.com/v3.1/subregion/all'],
       flag: [],
       countryName: '',
       countryFlag: '',
@@ -51,7 +54,8 @@ export default {
       userClicked: false,
       counter: 0,
       gamePart: 0,
-      disabledDivs: false
+      disabledDivs: false,
+      urlSelected: "",
     }
   },
   methods: {
@@ -126,11 +130,13 @@ export default {
       this.$refs.divGreen.classList.remove('correct')
       this.$refs.divRedOne.classList.remove('incorrect')
       this.$refs.divRedTwo.classList.remove('incorrect')
+      this.$refs.divGreen.classList.remove('disabled')
+      this.$refs.divRedOne.classList.remove('disabled')
+      this.$refs.divRedTwo.classList.remove('disabled')
       this.$refs.suivant.classList.remove('disabled')
-       this.$refs.resultat.classList.remove('resultat_visible')
-        this.$refs.newGame.classList.remove('new_game_visible')
-        this.$refs.containerCounter.classList.remove('container_counter_resultat')
-       
+      this.$refs.resultat.classList.remove('resultat_visible')
+      this.$refs.newGame.classList.remove('new_game_visible')
+      this.$refs.containerCounter.classList.remove('container_counter_resultat')
     },
 
     shuffle() {
@@ -139,11 +145,18 @@ export default {
       for (let i = 0; i < elements.length; i++) {
         parent.appendChild(elements[Math.floor(Math.random() * i)])
       }
-    }
-  },
+    },
+
+    findUrl(index) {
+      this.urlSelected = this.dataUrl[index];
+      console.log(this.urlSelected)
+   
+     }
+    },
+
   mounted() {
     axios
-      .get('https://restcountries.com/v3.1/all')
+      .get(this.urlSelected)
       .then((response) => {
         this.flag = response.data
         console.log(this.flag)
@@ -153,6 +166,8 @@ export default {
         this.quizz()
         this.shuffle()
         this.gamePart()
+        this.reload()
+        this.findUrl()
       })
       .catch((error) => {
         console.log(error)
@@ -175,7 +190,7 @@ export default {
 }
 .container_counter_resultat {
   height: 250px;
-  transition: height 2s ease-in;
+  transition: height 0.7s ease-in;
 }
 .counter {
   font-size: 18px;
@@ -276,7 +291,7 @@ export default {
 .disabled {
   pointer-events: none;
 }
-.abled{
+.abled {
   pointer-events: all;
 }
 .resultat {

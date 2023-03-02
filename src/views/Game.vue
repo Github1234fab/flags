@@ -12,7 +12,7 @@
         <span name="continents" class="continent">Monde<input @click="findUrl(5)" type="check" class="continent_button" checked /></span>
       </div>
     </div>
-    <div class="container_Gaming">
+    <div class="container_Gaming_hidden" ref="containerGaming">
       <div class="container_gamer">
         <h3 class="question">À quel pays appartient ce drapeau?</h3>
         <div class="container_div">
@@ -33,8 +33,9 @@
       </div>
       <div class="container_counter" ref="containerCounter">
         <h3 class="counter_title">Compteur</h3>
-        <h3 class="counter">{{ counter }}</h3>
-        <p class="resultat" ref="resultat">{{ counter }} points sur 5.</p>
+        <h3 class="counter">{{ counter }}/10</h3>
+         <h3 class="numberOfclick">Réponse n° {{ gamePart }}</h3>
+        <p class="resultat" ref="resultat">{{ counter }} points sur 10.</p>
         <button ref="newGame" @click="reload" class="new_game">Rejouer</button>
       </div>
     </div>
@@ -106,8 +107,8 @@ export default {
       console.log('ok')
       this.gamePart++
       console.log(this.gamePart)
-      if (this.gamePart == 5) {
-        console.log('Tu as fait une partie en 5')
+      if (this.gamePart == 10) {
+        console.log('Tu as fait une partie en 10')
         this.$refs.divGreen.classList.add('disabled')
         this.$refs.divRedOne.classList.add('disabled')
         this.$refs.divRedTwo.classList.add('disabled')
@@ -162,6 +163,8 @@ export default {
       this.urlSelected = dataUrl[index]
       console.log(this.urlSelected)
       this.fetchData()
+      this.$refs.containerGaming.classList.remove('container_Gaming_hidden');
+      this.$refs.containerGaming.classList.add('container_Gaming');
     },
 
 // requête avec url en fonction du continent. Comme on appelle la requête grâce à findUrl est ses écouteurs d'évènements sur les spans, on a pas besoin de mounted l'appel à l'API.
@@ -209,31 +212,34 @@ export default {
 
 <style>
 .container_counter {
-  height: 100px;
+  height: 200px;
   width: 350px;
-  background-color: rgb(15, 105, 36);
+  background: linear-gradient(rgb(44, 185, 77), rgb(39, 142, 63));
   box-shadow: 1px 1px 6px 0px rgb(69, 64, 64);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   align-content: center;
 }
 .container_counter_resultat {
-  height: 250px;
+  height: 350px;
   transition: height 0.7s ease-in;
 }
 .counter {
   font-size: 18px;
   color: rgb(236, 230, 230);
-  text-align: center;
+  display: flex;
+  justify-content: center;
   border: solid 1px grey;
   margin-bottom: 15px;
   padding: 10px;
   border-radius: 10px;
   background-color: transparent;
-  width: 50px;
+  width: 60px;
   height: 50px;
+
 }
 .counter_title {
   color: rgb(243, 244, 239);
@@ -306,6 +312,12 @@ export default {
   align-items: center;
   align-content: center;
   justify-content: space-around;
+  opacity: 1;
+  transition: opacity 1.6s ease-in;
+}
+.container_Gaming_hidden{
+  visibility: hidden;
+   opacity: 0;
 }
 .next {
   background-color: rgb(217, 217, 40);
@@ -333,16 +345,17 @@ export default {
 }
 .resultat_visible {
   visibility: visible;
-  color: white;
+  color: rgb(241, 194, 227);
   margin-top: 10px;
   transition: visibility2s ease-in;
+  font-size: 34px;
 }
 .new_game_visible {
   visibility: visible;
-  background-color: transparent;
-  color: rgb(242, 191, 191);
+  background: linear-gradient( rgb(238, 229, 230), rgb(161, 134, 137));
+  color: rgb(3, 3, 3);
   border-radius: 10px;
-  box-shadow: 1px 1px 4px 0px rgb(4, 4, 4);
+  box-shadow: 1px 3px 4px 1px rgb(4, 4, 4) inset;
   height: 60px;
   border: none;
   transition: visibility 2s ease-in;
@@ -391,5 +404,11 @@ export default {
   border-radius: 50%;
   border: none;
   background-color: blue;
+}
+.numberOfclick{
+  height: 25px;
+  width: 100px;
+  color: white;
+  font-size: 14px;
 }
 </style>

@@ -4,12 +4,24 @@
       <!-- <h1>Tableau de bord</h1> -->
       <!-- span avec @click pour appeler fonction findUrl pour trouver l'url correspondant au continent. -->
       <div class="themes">
-        <span name="continents" class="continent">Europe <input @click="findUrl(0)" type="check" class="continent_button" /></span>
-        <span name="continents" class="continent">Amérique <input @click="findUrl(1)" type="check" class="continent_button" /></span>
-        <span name="continents" class="continent">Afrique<input @click="findUrl(2)" type="check" class="continent_button"/></span>
-        <span name="continents" class="continent">Asie<input @click="findUrl(3)" type="check" class="continent_button"/></span>
-        <span name="continents" class="continent">Océanie <input @click="findUrl(4)" type="check" class="continent_button"/></span>
-        <span name="continents" class="continent">Monde<input @click="findUrl(5)" type="check" class="continent_button" checked /></span>
+        <span name="continents" class="continent" 
+          >Europe <input @click="findUrl(0)" type="check" ref="radio" class="continent_button"
+        /></span>
+        <span name="continents" class="continent" 
+          >Amérique <input @click="findUrl(1)" type="check" ref="radio" class="continent_button"
+        /></span>
+        <span name="continents" class="continent" 
+          >Afrique<input @click="findUrl(2)" type="check" ref="radio" class="continent_button"
+        /></span>
+        <span name="continents" class="continent" 
+          >Asie<input @click="findUrl(3)" type="check" ref="radio" class="continent_button"
+        /></span>
+        <span name="continents" class="continent" 
+          >Océanie <input @click="findUrl(4)" type="check" ref="radio" class="continent_button"
+        /></span>
+        <span name="continents" class="continent" 
+          >Monde<input @click="findUrl(5)" type="check" ref="radio" class="continent_button" checked
+        /></span>
       </div>
     </div>
     <div class="container_Gaming_hidden" ref="containerGaming">
@@ -34,7 +46,7 @@
       <div class="container_counter" ref="containerCounter">
         <h3 class="counter_title">Compteur</h3>
         <h3 class="counter">{{ counter }}/10</h3>
-         <h3 class="numberOfclick">Réponse n° {{ gamePart }}</h3>
+        <h3 class="numberOfclick">Réponse n° {{ gamePart }}</h3>
         <p class="resultat" ref="resultat">{{ counter }} points sur 10.</p>
         <button ref="newGame" @click="reload" class="new_game">Rejouer</button>
       </div>
@@ -149,26 +161,34 @@ export default {
       window.location.reload()
     },
 
-//fonction qui permet de mélanger l'ordre des questions de haut en bas.
+    //fonction qui permet de mélanger l'ordre des questions de haut en bas.
     shuffle() {
       const parent = this.$refs.containerQuestionRandom
       const elements = parent.children
-      for (let i = 0; i < elements.length; i++) {
+      for (let i = 1; i < elements.length; i++) {
         parent.appendChild(elements[Math.floor(Math.random() * i)])
       }
     },
 
-//fonction qui permet de choisir l'url en fonction du continent
-    findUrl(index) {
+
+
+    //fonction qui permet de choisir l'url en fonction du continent
+    findUrl(index, event) {
       let dataUrl = [this.urlA, this.urlB, this.urlC, this.urlD, this.urlE, this.urlF]
       this.urlSelected = dataUrl[index]
       console.log(this.urlSelected)
       this.fetchData()
-      this.$refs.containerGaming.classList.remove('container_Gaming_hidden');
-      this.$refs.containerGaming.classList.add('container_Gaming');
+      this.$refs.containerGaming.classList.remove('container_Gaming_hidden')
+      this.$refs.containerGaming.classList.add('container_Gaming')
+      this.$refs.radio.classList.add('active_span:active')
+      this.$refs.radio.classList.add('active_span:active')
+      this.$refs.spanC.classList.add('active_span')
+      this.$refs.spanD.classList.add('active_span')
+      this.$refs.spanE.classList.add('active_span')
+      this.$refs.spanF.classList.add('active_span')
     },
 
-// requête avec url en fonction du continent. Comme on appelle la requête grâce à findUrl est ses écouteurs d'évènements sur les spans, on a pas besoin de mounted l'appel à l'API.
+    // requête avec url en fonction du continent. Comme on appelle la requête grâce à findUrl est ses écouteurs d'évènements sur les spans, on a pas besoin de mounted l'appel à l'API.
     fetchData() {
       axios
         .get(this.urlSelected)
@@ -240,7 +260,6 @@ export default {
   background-color: transparent;
   width: 60px;
   height: 50px;
-
 }
 .counter_title {
   color: rgb(243, 244, 239);
@@ -275,6 +294,7 @@ export default {
   border-radius: 5px;
   margin-bottom: 25px;
   margin-top: 15px;
+  
 }
 .input {
   border: none;
@@ -316,21 +336,24 @@ export default {
   opacity: 1;
   transition: opacity 1.6s ease-in;
 }
-.container_Gaming_hidden{
+.container_Gaming_hidden {
   visibility: hidden;
-   opacity: 0;
+  opacity: 0;
 }
 .next {
   background-color: rgb(217, 217, 40);
   color: rgb(1, 1, 72);
   box-shadow: 1px 1px 4px 0px rgb(69, 64, 64) inset;
-  width: 350px;
+  width: 150px;
   text-align: center;
   padding: 10px;
+  margin: auto;
   margin-bottom: 5px;
+  margin-top: 20px;
   font-size: 14px;
   border-radius: 5px;
   transition: 0.4s ease-in-out;
+  border-radius: 25px;
 }
 .disabled {
   pointer-events: none;
@@ -353,7 +376,7 @@ export default {
 }
 .new_game_visible {
   visibility: visible;
-  background: linear-gradient( rgb(238, 229, 230), rgb(229, 225, 225));
+  background: linear-gradient(rgb(238, 229, 230), rgb(229, 225, 225));
   color: rgb(3, 3, 3);
   border-radius: 10px;
   box-shadow: 1px 3px 10px 1px rgb(4, 4, 4);
@@ -393,23 +416,37 @@ export default {
   align-items: center;
   align-content: center;
 }
-.continent_button{
+.continent_button {
   height: 20px;
   width: 20px;
   border-radius: 50%;
   border: none;
 }
-.continent_button:hover{
+.continent_button:hover {
   height: 20px;
   width: 20px;
   border-radius: 50%;
   border: none;
   background-color: blue;
 }
-.numberOfclick{
+
+.numberOfclick {
   height: 25px;
   width: 100px;
   color: rgb(0, 0, 0);
   font-size: 14px;
 }
+.active_span{
+  background-color: blue;
+}
+.active_span:active {
+  color: blue;
+}
+.container_countries_names{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 150px;
+}
+
 </style>

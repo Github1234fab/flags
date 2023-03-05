@@ -4,23 +4,28 @@
       <!-- <h1>Tableau de bord</h1> -->
       <!-- span avec @click pour appeler fonction findUrl pour trouver l'url correspondant au continent. -->
       <div class="themes">
-        <span name="continents" class="continent" 
+        <span name="continents" class="continent"
           >Europe <input @click="findUrl(0)" type="check" ref="radio" class="continent_button"
         /></span>
-        <span name="continents" class="continent" 
+        <span name="continents" class="continent"
           >Amérique <input @click="findUrl(1)" type="check" ref="radio" class="continent_button"
         /></span>
-        <span name="continents" class="continent" 
+        <span name="continents" class="continent"
           >Afrique<input @click="findUrl(2)" type="check" ref="radio" class="continent_button"
         /></span>
-        <span name="continents" class="continent" 
+        <span name="continents" class="continent"
           >Asie<input @click="findUrl(3)" type="check" ref="radio" class="continent_button"
         /></span>
-        <span name="continents" class="continent" 
+        <span name="continents" class="continent"
           >Océanie <input @click="findUrl(4)" type="check" ref="radio" class="continent_button"
         /></span>
-        <span name="continents" class="continent" 
-          >Monde<input @click="findUrl(5)" type="check" ref="radio" class="continent_button" checked
+        <span name="continents" class="continent"
+          >Monde<input
+            @click="findUrl(5)"
+            type="check"
+            ref="radio"
+            class="continent_button"
+            checked
         /></span>
       </div>
     </div>
@@ -43,12 +48,16 @@
           <div ref="suivant" @click="restartGame" class="next">Suivant</div>
         </div>
       </div>
-      <div class="container_counter" ref="containerCounter">
-        <h3 class="counter_title">Compteur</h3>
-        <h3 class="counter">{{ counter }}/10</h3>
-        <h3 class="numberOfclick">Réponse n° {{ gamePart }}</h3>
-        <p class="resultat" ref="resultat">{{ counter }} points sur 10.</p>
-        <button ref="newGame" @click="reload" class="new_game">Rejouer</button>
+      <div class="container_counter_resultat">
+        <div class="container_counter" ref="containerCounter">
+          <h3 class="counter_title">Compteur</h3>
+          <h3 class="counter">{{ counter }}/10</h3>
+          <h3 class="numberOfclick">Réponse n° {{ gamePart }}</h3>
+          <div class="container_resultat">
+            <p class="resultat" ref="resultat">{{ counter }} points sur 10.</p>
+            <button ref="newGame" @click="reload" class="new_game">Rejouer</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -165,12 +174,10 @@ export default {
     shuffle() {
       const parent = this.$refs.containerQuestionRandom
       const elements = parent.children
-      for (let i = 1; i < elements.length; i++) {
+      for (let i = 0; i < elements.length; i++) {
         parent.appendChild(elements[Math.floor(Math.random() * i)])
       }
     },
-
-
 
     //fonction qui permet de choisir l'url en fonction du continent
     findUrl(index, event) {
@@ -233,20 +240,36 @@ export default {
 
 <style>
 .container_counter {
-  height: 200px;
-  width: 350px;
+  height: 150px;
+  width: 150px;
   background: linear-gradient(rgb(184, 209, 190), rgb(39, 142, 63));
   box-shadow: 1px 1px 6px 0px rgb(69, 64, 64);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   align-items: center;
   align-content: center;
+  position: absolute;
+  top: 270px;
+  right: 120px;
+}
+
+.container_resultat {
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  /* transition: height 0.7s ease-in; */
 }
 .container_counter_resultat {
-  height: 350px;
-  transition: height 0.7s ease-in;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  height: 37%;
 }
 .counter {
   font-size: 18px;
@@ -260,12 +283,15 @@ export default {
   background-color: transparent;
   width: 60px;
   height: 50px;
+  font-family: 'Times New Roman', Times, serif;
+  box-shadow: 1px 1px 5px 0px black inset;
 }
 .counter_title {
   color: rgb(243, 244, 239);
   font-size: 15px;
   text-align: center;
   margin-top: 20px;
+  font-family: arial;
 }
 .container_gamer {
   display: flex;
@@ -294,7 +320,6 @@ export default {
   border-radius: 5px;
   margin-bottom: 25px;
   margin-top: 15px;
-  
 }
 .input {
   border: none;
@@ -372,17 +397,19 @@ export default {
   color: rgb(246, 246, 246);
   margin-top: 10px;
   transition: visibility2s ease-in;
-  font-size: 28px;
+  font-size: 18px;
 }
 .new_game_visible {
   visibility: visible;
-  background: linear-gradient(rgb(238, 229, 230), rgb(229, 225, 225));
-  color: rgb(3, 3, 3);
+  background: linear-gradient(rgb(29, 60, 232), rgb(168, 160, 218));
+  color: rgb(255, 255, 255);
   border-radius: 10px;
   box-shadow: 1px 3px 10px 1px rgb(4, 4, 4);
   height: 60px;
   border: none;
   transition: visibility 2s ease-in;
+  font-family: poppins;
+  font-weight: 500;
 }
 .table_board {
   background: linear-gradient(rgb(178, 180, 29), rgb(172, 175, 14));
@@ -436,17 +463,16 @@ export default {
   color: rgb(0, 0, 0);
   font-size: 14px;
 }
-.active_span{
+.active_span {
   background-color: blue;
 }
 .active_span:active {
   color: blue;
 }
-.container_countries_names{
+.container_countries_names {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 150px;
 }
-
 </style>

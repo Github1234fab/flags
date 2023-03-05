@@ -50,13 +50,13 @@
       </div>
       <div class="container_counter_resultat">
         <div class="container_counter" ref="containerCounter">
-          <h3 class="counter_title">Compteur</h3>
+          <h3 class="counter_title">Points</h3>
           <h3 class="counter">{{ counter }}/10</h3>
-          <h3 class="numberOfclick">Réponse n° {{ gamePart }}</h3>
-          <div class="container_resultat">
-            <p class="resultat" ref="resultat">{{ counter }} points sur 10.</p>
-            <button ref="newGame" @click="reload" class="new_game">Rejouer</button>
-          </div>
+          <h3 class="number_of_game">Coup</h3>
+          <h3 class="numberOfclick">{{ gamePart }}</h3>
+          <h3 class="score_txt" ref="scoreTxt">Score</h3>
+          <p class="resultat" ref="resultat">{{ counter }}</p>
+          <button ref="newGame" @click="reload" class="new_game">Rejouer</button>
         </div>
       </div>
     </div>
@@ -135,8 +135,9 @@ export default {
         this.$refs.divRedTwo.classList.add('disabled')
         this.$refs.resultat.classList.add('resultat_visible')
         this.$refs.newGame.classList.add('new_game_visible')
-        this.$refs.containerCounter.classList.add('container_counter_resultat')
+        this.$refs.containerCounter.classList.add('container_counter_visible')
         this.$refs.suivant.classList.add('disabled')
+        this.$refs.scoreTxt.classList.add('score_txt_visible')
       }
     },
     // fonction qui permet d'accéder au coup suivant
@@ -240,7 +241,7 @@ export default {
 
 <style>
 .container_counter {
-  height: 150px;
+  height: 220px;
   width: 150px;
   background: linear-gradient(rgb(184, 209, 190), rgb(39, 142, 63));
   box-shadow: 1px 1px 6px 0px rgb(69, 64, 64);
@@ -253,6 +254,10 @@ export default {
   position: absolute;
   top: 270px;
   right: 120px;
+}
+.container_counter_visible {
+  height: 370px;
+  transition: 1s ease-in;
 }
 
 .container_resultat {
@@ -269,29 +274,34 @@ export default {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  height: 37%;
+  height: 45%;
+}
+.number_of_game {
+  font-size: 16px;
+  color: white;
 }
 .counter {
   font-size: 18px;
   color: rgb(236, 230, 230);
   display: flex;
   justify-content: center;
+  align-items: center;
   border: solid 1px grey;
   margin-bottom: 15px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 10px;
   background-color: transparent;
-  width: 60px;
+  width: 70px;
   height: 50px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: poppins;
   box-shadow: 1px 1px 5px 0px black inset;
 }
 .counter_title {
-  color: rgb(243, 244, 239);
-  font-size: 15px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
   text-align: center;
   margin-top: 20px;
-  font-family: arial;
+  font-family: poppins;
 }
 .container_gamer {
   display: flex;
@@ -389,16 +399,32 @@ export default {
 .resultat {
   visibility: hidden;
 }
+.resultat_txt {
+  font-size: 18px;
+  color: white;
+}
 .new_game {
   visibility: hidden;
 }
 .resultat_visible {
-  visibility: visible;
-  color: rgb(246, 246, 246);
-  margin-top: 10px;
-  transition: visibility2s ease-in;
+  color: rgb(236, 230, 230);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px grey;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0);
+  width: 60px;
+  height: 50px;
+  font-family: poppins;
+  box-shadow: 1px 1px 5px 0px black inset;
   font-size: 18px;
+  visibility: visible;
+  transition: 1s ease-in;
 }
+
 .new_game_visible {
   visibility: visible;
   background: linear-gradient(rgb(29, 60, 232), rgb(168, 160, 218));
@@ -410,6 +436,7 @@ export default {
   transition: visibility 2s ease-in;
   font-family: poppins;
   font-weight: 500;
+  transition: 1s ease-in;
 }
 .table_board {
   background: linear-gradient(rgb(178, 180, 29), rgb(172, 175, 14));
@@ -458,10 +485,20 @@ export default {
 }
 
 .numberOfclick {
-  height: 25px;
-  width: 100px;
-  color: rgb(0, 0, 0);
-  font-size: 14px;
+  font-size: 18px;
+  color: rgb(236, 230, 230);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px grey;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: transparent;
+  width: 60px;
+  height: 50px;
+  font-family: poppins;
+  box-shadow: 1px 1px 5px 0px black inset;
 }
 .active_span {
   background-color: blue;
@@ -474,5 +511,14 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   height: 150px;
+}
+.score_txt {
+  font-size: 16px;
+  color: white;
+  visibility: hidden;
+}
+.score_txt_visible {
+  visibility: visible;
+  transition: 1s ease-in;
 }
 </style>

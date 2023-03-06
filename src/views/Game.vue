@@ -152,22 +152,6 @@ export default {
     },
     //fonction qui recharge une nouvelle partie, en évitant de recharger la page. En, gros, tous les composants sont remis à zéro.
     reload() {
-      // this.oneflag()
-      // this.randomNameOne()
-      // this.randomNameTwo()
-      // this.shuffle()
-      // this.counter = 0
-      // this.$refs.divGreen.classList.remove('correct')
-      // this.$refs.divRedOne.classList.remove('incorrect')
-      // this.$refs.divRedTwo.classList.remove('incorrect')
-      // this.$refs.divGreen.classList.remove('disabled')
-      // this.$refs.divRedOne.classList.remove('disabled')
-      // this.$refs.divRedTwo.classList.remove('disabled')
-      // this.$refs.suivant.classList.remove('disabled')
-      // this.$refs.resultat.classList.remove('resultat_visible')
-      // this.$refs.newGame.classList.remove('new_game_visible')
-      // this.$refs.containerCounter.classList.remove('container_counter_resultat')
-      // this.reponse()
       window.location.reload()
     },
 
@@ -175,7 +159,7 @@ export default {
     shuffle() {
       const parent = this.$refs.containerQuestionRandom
       const elements = parent.children
-      for (let i = 0; i < elements.length; i++) {
+      for (let i = 1; i < elements.length; i++) {
         parent.appendChild(elements[Math.floor(Math.random() * i)])
       }
     },
@@ -216,26 +200,6 @@ export default {
         })
     }
   }
-
-  // mounted() {
-  //   axios
-  //     .get(this.url)
-  //     .then((response) => {
-  //       this.flag = response.data
-  //       console.log(this.flag)
-  //       this.oneflag()
-  //       this.randomNameOne()
-  //       this.randomNameTwo()
-  //       this.quizz()
-  //       this.shuffle()
-  //       this.gamePart()
-  //       this.reload()
-  //       this.findUrl()
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
 }
 </script>
 
@@ -419,7 +383,7 @@ export default {
   width: 60px;
   height: 50px;
   font-family: poppins;
-  box-shadow: 1px 1px 5px 0px black inset;
+  box-shadow: 1px 1px 5px 0px rgb(255, 254, 254) inset;
   font-size: 18px;
   visibility: visible;
   transition: 1s ease-in;
